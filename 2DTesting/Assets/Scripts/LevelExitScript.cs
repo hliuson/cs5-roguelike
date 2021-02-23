@@ -22,6 +22,7 @@ public class LevelExitScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //SceneManager.LoadScene(nextSceneName);
     }
 }
