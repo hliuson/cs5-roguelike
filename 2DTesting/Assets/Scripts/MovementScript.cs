@@ -12,9 +12,9 @@ public class MovementScript : MonoBehaviour {
     float horizontalSpeed = 0, verticalSpeed = 0;
 
     const float diagonalLimit = 0.707f;
-    public float speed = 10.0f;
+    float speed = 10.0f;
     public float acceleration = 2.0f;
-    const float regSpeed = 10.0f;
+    public const float regSpeed = 20.0f;
     const float diagSpeed = diagonalLimit * regSpeed;
 
     // Start is called before the first frame update
