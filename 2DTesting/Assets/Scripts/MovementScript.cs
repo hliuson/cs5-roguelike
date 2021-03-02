@@ -23,8 +23,8 @@ public class MovementScript : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        int horizontalDirection = (int)((horizontalSpeed / Math.Abs(horizontalSpeed)));
-        int verticalDirection = (int)((verticalSpeed / Math.Abs(verticalSpeed)));
+        int horizontalDirection = Math.Sign(horizontalSpeed);//(int)((horizontalSpeed / Math.Abs(horizontalSpeed)));
+        int verticalDirection = Math.Sign(verticalSpeed);//(int)((verticalSpeed / Math.Abs(verticalSpeed)));
 
         if (horizontalPress != 0 && verticalPress != 0) {
             //horizontalSpeed *= diagonalLimit;
