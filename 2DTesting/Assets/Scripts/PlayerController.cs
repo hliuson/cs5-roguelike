@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class MovementScript : MonoBehaviour {
+public class PlayerController : Combatable {
 
     Rigidbody2D body;
 
@@ -16,6 +16,8 @@ public class MovementScript : MonoBehaviour {
     public float acceleration = 2.0f;
     public const float regSpeed = 20.0f;
     const float diagSpeed = diagonalLimit * regSpeed;
+
+    List<PowerUp> powerUpList;
 
     // Start is called before the first frame update
     void Start() {
@@ -85,5 +87,20 @@ public class MovementScript : MonoBehaviour {
         horizontalPress = Input.GetAxisRaw("Horizontal");
         verticalPress = Input.GetAxisRaw("Vertical");
         body.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public override void onDeath(Combatable source)
+    {
+        Debug.Log("Died");
+    }
+
+    public override void attack()
+    {
+        Debug.Log("Player Is Attacking");
+    }
+
+    public void gainPowerUp(PowerUp powerUp)
+    {
+        powerUpList.Add(powerUp);
     }
 }
