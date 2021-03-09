@@ -22,7 +22,7 @@ public class NextLevelScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //SceneManager.LoadScene("SampleScene");
     }
 }
