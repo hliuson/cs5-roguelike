@@ -11,12 +11,17 @@ public class PlayerController : Combatable {
 
     float horizontalSpeed = 0, verticalSpeed = 0;
 
-    const float diagonalLimit = 0.707f;
-    float speed = 10.0f;
+    private const float diagonalLimit = 0.707f;
+    private float speed = 10.0f;
     public float acceleration = 2.0f;
     public const float regSpeed = 20.0f;
-    const float diagSpeed = diagonalLimit * regSpeed;
+    private const float diagSpeed = diagonalLimit * regSpeed;
 
+    public const float dashMax = 5.0f;
+    private float dashMulti = 1.0f;
+    public const float dashSpeed = 50.0f;
+    public const int dashDuration = 10;
+    int dashTime = 0;
     List<PowerUp> powerUpList;
 
     // Start is called before the first frame update
@@ -27,7 +32,7 @@ public class PlayerController : Combatable {
     private void FixedUpdate() {
         int horizontalDirection = Math.Sign(horizontalSpeed);//(int)((horizontalSpeed / Math.Abs(horizontalSpeed)));
         int verticalDirection = Math.Sign(verticalSpeed);//(int)((verticalSpeed / Math.Abs(verticalSpeed)));
-
+        
         if (horizontalPress != 0 && verticalPress != 0) {
             //horizontalSpeed *= diagonalLimit;
             //verticalSpeed *= diagonalLimit;
@@ -43,7 +48,17 @@ public class PlayerController : Combatable {
         {
             speed = regSpeed;
         }
-        
+
+        dashTime--;
+        if (dashTime >= 0)
+        {
+            speed = dashSpeed;
+            dashMulti = dashMax;
+        } else
+        {
+            dashMulti = 1.0f;
+        }
+
         if (horizontalSpeed > speed)
         {
             horizontalSpeed = speed;
@@ -79,7 +94,9 @@ public class PlayerController : Combatable {
         {
             verticalSpeed += verticalPress * acceleration;
         }
-        body.velocity = new Vector2(horizontalSpeed, verticalSpeed);
+       
+         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
+        
     }
 
     // Update is called once per frame
@@ -87,6 +104,10 @@ public class PlayerController : Combatable {
         horizontalPress = Input.GetAxisRaw("Horizontal");
         verticalPress = Input.GetAxisRaw("Vertical");
         body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if (Input.GetMouseButtonDown(1) && dashTime < -20)
+        {
+            dashTime = dashDuration;
+        }
     }
 
     public override void onDeath(Combatable source)
