@@ -1167,6 +1167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d121af433505a16479566bf8ec309c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
   acceleration: 2
 --- !u!61 &1306544845
 BoxCollider2D:
@@ -1243,8 +1245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7521917ce8f4654f9dba014ac55d2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPrefab: {fileID: 5603169330297582339, guid: d01b06502a60c244bbde34d2ff6303b7,
-    type: 3}
+  roomBlockPrefabs:
+  - {fileID: 5603169330297582339, guid: d01b06502a60c244bbde34d2ff6303b7, type: 3}
+  weights:
+  - 1
+  verticalBlocks: 2
+  horizontalBlocks: 3
+  blockSizing: 3
 --- !u!1 &1588422009
 GameObject:
   m_ObjectHideFlags: 0
