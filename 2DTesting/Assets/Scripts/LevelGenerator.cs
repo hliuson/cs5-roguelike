@@ -19,13 +19,15 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     public float blockSizing;
 
+    private System.Random rand = new System.Random();
+
     // Start is called before the first frame update
     void Start()
     {
         HashSet<(int, int, terrainType)> roomPositions = getRoomTemplate();
         foreach((int x, int y, terrainType tt) roomPos in roomPositions)
         {
-            Instantiate(roomBlockPrefabs[0], new Vector3(roomPos.x*blockSizing, roomPos.y*blockSizing, 0), Quaternion.identity);
+            Instantiate(roomBlockPrefabs[0], new Vector3(roomPos.x* (float)(rand.NextDouble()*2-1) * blockSizing, roomPos.y* (float)(rand.NextDouble() * 2 - 1) * blockSizing, 0), Quaternion.identity);
         }
     }
 

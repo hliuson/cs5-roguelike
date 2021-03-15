@@ -25,7 +25,7 @@ public class ProjectileScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!(gameObject.name.Contains("(Clone)")))
         {

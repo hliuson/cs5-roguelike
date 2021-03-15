@@ -1,22 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PotionScript : PowerUp
+public class EscapeMenuControl : MonoBehaviour
 {
-    
-    public int healNum = 2; 
-
-    public override void onPickup()
-    {
-        //Increase health
-        //I just use on collision instead
-    }
-    
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void quitToMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
     // Update is called once per frame
