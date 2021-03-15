@@ -1,4 +1,9 @@
-﻿public abstract class PowerUp
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public abstract class PowerUp : MonoBehaviour
 {
     public static Rarity rarity;
     public static string name;
