@@ -7,6 +7,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     public GameObject[] roomBlockPrefabs;
 
+
     [SerializeField]
     public float[] weights;
 
@@ -27,7 +28,7 @@ public class LevelGenerator : MonoBehaviour
         HashSet<(int, int, terrainType)> roomPositions = getRoomTemplate();
         foreach((int x, int y, terrainType tt) roomPos in roomPositions)
         {
-            Instantiate(roomBlockPrefabs[0], new Vector3(roomPos.x* (float)(rand.NextDouble()*2-1) * blockSizing, roomPos.y* (float)(rand.NextDouble() * 2 - 1) * blockSizing, 0), Quaternion.identity);
+            Instantiate(roomBlockPrefabs[0], new Vector3(roomPos.x * blockSizing, roomPos.y * blockSizing, 0), Quaternion.identity);
         }
     }
 
