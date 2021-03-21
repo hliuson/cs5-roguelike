@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 9031198874071356577}
   - component: {fileID: 9031198874071356578}
   - component: {fileID: 1306544845}
-  - component: {fileID: 1306544844}
   - component: {fileID: 1306544849}
   - component: {fileID: 1306544850}
+  - component: {fileID: -8458898547864068405}
   m_Layer: 0
   m_Name: TestPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +189,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1306544845
 BoxCollider2D:
@@ -217,21 +217,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 13.05, y: 16.07}
   m_EdgeRadius: 0
---- !u!114 &1306544844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9031198874071356605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d121af433505a16479566bf8ec309c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  acceleration: 2
 --- !u!114 &1306544849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,3 +244,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   paused: 0
+--- !u!114 &-8458898547864068405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031198874071356605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d121af433505a16479566bf8ec309c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  acceleration: 2

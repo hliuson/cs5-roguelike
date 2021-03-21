@@ -95,7 +95,7 @@ public class PlayerController : Combatable {
             verticalSpeed += verticalPress * acceleration;
         }
        
-         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
+         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed * dashMulti);
         
     }
 
