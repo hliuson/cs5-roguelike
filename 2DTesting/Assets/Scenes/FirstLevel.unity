@@ -1083,7 +1083,11 @@ MonoBehaviour:
   startBlock: {fileID: 1766944596025173606, guid: 7abf73618e1e032449b4d8937cc9de36,
     type: 3}
   endBlock: {fileID: 978394374304190221, guid: b829ba4c738e8ba4b8e41a1bdb46e6e5, type: 3}
-  verticalBlocks: 2
+  borderWall: {fileID: 5349593336131546475, guid: 2f1e962a3d2194647bf021d8961b34eb,
+    type: 3}
+  debugFlagTemp: {fileID: 3210433252916363311, guid: d01b06502a60c244bbde34d2ff6303b7,
+    type: 3}
+  verticalBlocks: 5
   horizontalBlocks: 3
   blockSizing: 20
 --- !u!1001 &1797422955
