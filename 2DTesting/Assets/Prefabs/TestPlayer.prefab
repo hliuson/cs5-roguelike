@@ -95,13 +95,16 @@ GameObject:
   - component: {fileID: 9031198874071356577}
   - component: {fileID: 9031198874071356578}
   - component: {fileID: 1306544845}
-  - component: {fileID: 1306544844}
   - component: {fileID: 1306544849}
   - component: {fileID: 1306544850}
+<<<<<<< HEAD
   - component: {fileID: 1078935071890653984}
+=======
+  - component: {fileID: -8458898547864068405}
+>>>>>>> a05a03c (Added some enemy AI stuff with getting closest player and started working on pathfinding as well)
   m_Layer: 0
   m_Name: TestPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +193,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1306544845
 BoxCollider2D:
@@ -218,22 +221,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 13.05, y: 16.07}
   m_EdgeRadius: 0
---- !u!114 &1306544844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9031198874071356605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d121af433505a16479566bf8ec309c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  animator: {fileID: 1078935071890653984}
-  acceleration: 2
 --- !u!114 &1306544849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,8 +233,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1691da2121e6b41b70c1ac362b055a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  health: 0
+  maxHealth: 0
+  animator: {fileID: 1078935071890653984}
+  acceleration: 2
+--- !u!114 &1306544849
+=======
   healthBar: {fileID: 0}
 --- !u!114 &1306544850
+>>>>>>> a05a03c (Added some enemy AI stuff with getting closest player and started working on pathfinding as well)
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,6 +254,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59023ecec2f9ab04384e9fd1177325c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Canvas: {fileID: 0}
+  paused: 0
+--- !u!114 &-8458898547864068405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031198874071356605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d121af433505a16479566bf8ec309c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+<<<<<<< HEAD
   Canvas: {fileID: 0}
   paused: 0
 --- !u!95 &1078935071890653984
@@ -280,3 +290,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+=======
+  health: 0
+  maxHealth: 0
+  acceleration: 2
+>>>>>>> a05a03c (Added some enemy AI stuff with getting closest player and started working on pathfinding as well)

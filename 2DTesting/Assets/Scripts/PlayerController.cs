@@ -96,9 +96,15 @@ public class PlayerController : Combatable {
         {
             verticalSpeed += verticalPress * acceleration;
         }
+<<<<<<< HEAD
 
          body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
 
+=======
+       
+         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed * dashMulti);
+        
+>>>>>>> a05a03c (Added some enemy AI stuff with getting closest player and started working on pathfinding as well)
     }
 
     // Update is called once per frame

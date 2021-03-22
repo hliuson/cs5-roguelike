@@ -6,14 +6,15 @@ public class ProjectileScript : MonoBehaviour
 {
     public Transform player;
     public Transform self;
-    public Camera currentCam;
+    private Camera currentCam;
     public Rigidbody2D projectile;
     public Vector2 projectileMovement = new Vector2(50, 50);
     public float speed = 10.0f;
     Vector2 mousePos;
     // Start is called before the first frame update
     void Start()
-    {   
+    {
+        currentCam = Camera.main;
         if (!(gameObject.name.Contains("(Clone)")))
         {
             //self.localScale = new Vector3(0, 0, 0);
