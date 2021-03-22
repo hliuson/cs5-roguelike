@@ -5,11 +5,16 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
-    public GameObject[] roomBlockPrefabs;
-
+    public GameObject[] traversableBlocks;
 
     [SerializeField]
-    public float[] weights;
+    public GameObject[] nontraversibleBlocks;
+
+    [SerializeField]
+    public GameObject startBlock;
+
+    [SerializeField]
+    public GameObject endBlock;
 
     [SerializeField]
     public int verticalBlocks;
@@ -28,7 +33,24 @@ public class LevelGenerator : MonoBehaviour
         HashSet<(int, int, terrainType)> roomPositions = getRoomTemplate();
         foreach((int x, int y, terrainType tt) roomPos in roomPositions)
         {
-            Instantiate(roomBlockPrefabs[0], new Vector3(roomPos.x * blockSizing, roomPos.y * blockSizing, 0), Quaternion.identity);
+            GameObject prefab = null;
+            if(roomPos.tt == terrainType.start)
+            {
+                prefab = startBlock;
+            }
+            if(roomPos.tt == terrainType.end)
+            {
+                prefab = endBlock;
+            }
+            if(roomPos.tt == terrainType.traversable)
+            {
+                prefab = traversableBlocks[0];//TODO: make this actually random
+            }
+            if(roomPos.tt == terrainType.nontraversable)
+            {
+                prefab = nontraversibleBlocks[0];
+            }
+            Instantiate(prefab, new Vector3(roomPos.x * blockSizing, roomPos.y * blockSizing, 0), Quaternion.identity);
         }
     }
 
@@ -40,9 +62,21 @@ public class LevelGenerator : MonoBehaviour
         {
             for(int j = 0; j < verticalBlocks; j++)
             {
-                terrainSet.Add((i, j, terrainType.traversable));
+                if(i == 0 && j == 0)
+                {
+                    terrainSet.Add((i, j, terrainType.start));
+                }
+                else if(i == horizontalBlocks-1 && j == verticalBlocks-1)
+                {
+                    terrainSet.Add((i, j, terrainType.end));
+                }
+                else
+                {
+                    terrainSet.Add((i, j, terrainType.traversable));
+                }
             }
         }
+
         return terrainSet;
     }
 
