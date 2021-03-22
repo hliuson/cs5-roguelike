@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
     }
 
     void Update()
-    {
+    {/*
       if(health > numOfHearts)
       {
         health = numOfHearts;
@@ -45,6 +45,6 @@ public class Health : MonoBehaviour
         {
           hearts[i].enabled = false;
         }
-      }
+      }*/
     }
 }

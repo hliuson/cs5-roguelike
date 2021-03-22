@@ -17,6 +17,12 @@ public class LevelGenerator : MonoBehaviour
     public GameObject endBlock;
 
     [SerializeField]
+    public GameObject borderWall;
+
+    [SerializeField]
+    public GameObject debugFlagTemp;
+
+    [SerializeField]
     public int verticalBlocks;
     
     [SerializeField]
@@ -30,54 +36,82 @@ public class LevelGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HashSet<(int, int, terrainType)> roomPositions = getRoomTemplate();
-        foreach((int x, int y, terrainType tt) roomPos in roomPositions)
+        Dictionary<(int, int), terrainType> roomPositions = getRoomTemplate();
+        foreach(KeyValuePair<(int, int), terrainType> kvp in roomPositions)
         {
+            (int x, int y) location = kvp.Key;
+            terrainType tt = kvp.Value;
+
             GameObject prefab = null;
-            if(roomPos.tt == terrainType.start)
+            //Instantiate Block
+            if(tt == terrainType.start)
             {
                 prefab = startBlock;
             }
-            if(roomPos.tt == terrainType.end)
+            if(tt == terrainType.end)
             {
                 prefab = endBlock;
             }
-            if(roomPos.tt == terrainType.traversable)
+            if(tt == terrainType.traversable)
             {
                 prefab = traversableBlocks[0];//TODO: make this actually random
             }
-            if(roomPos.tt == terrainType.nontraversable)
+            if(tt == terrainType.nontraversable)
             {
                 prefab = nontraversibleBlocks[0];
             }
-            Instantiate(prefab, new Vector3(roomPos.x * blockSizing, roomPos.y * blockSizing, 0), Quaternion.identity);
+            Vector3 roomLocation = new Vector3(location.x * blockSizing, location.y * blockSizing, 0);
+            Instantiate(prefab, roomLocation, Quaternion.identity);
+
+            //Check if any of the four directions is on the perimeter
+            bool topWall = !roomPositions.ContainsKey((location.x, location.y + 1));
+            bool bottomWall = !roomPositions.ContainsKey((location.x, location.y - 1));
+            bool leftWall = !roomPositions.ContainsKey((location.x + 1, location.y));
+            bool rightWall = !roomPositions.ContainsKey((location.x - 1, location.y));
+            
+            if (topWall)
+            {
+                Instantiate(borderWall, roomLocation + new Vector3(0, blockSizing / 2, 0), Quaternion.Euler(0, 0, 0));
+            }
+            if (bottomWall)
+            {
+                Instantiate(borderWall, roomLocation + new Vector3(0, -blockSizing / 2, 0), Quaternion.Euler(0, 0, 180));
+            }
+            if (rightWall)
+            {
+                Instantiate(borderWall, roomLocation + new Vector3(-blockSizing / 2, 0, 0), Quaternion.Euler(0, 0, 90));
+            }
+            if (leftWall)
+            {
+                Instantiate(borderWall, roomLocation + new Vector3(blockSizing / 2, 0, 0), Quaternion.Euler(0, 0, 270));
+            }
         }
     }
 
     //Maybe i should just make this a class instead of a tuple lol
-    HashSet<(int,int,terrainType)> getRoomTemplate()
+    Dictionary<(int,int),terrainType> getRoomTemplate()
     {
-        HashSet<(int, int, terrainType)> terrainSet = new HashSet<(int, int, terrainType)>();
-        for(int i = 0; i < horizontalBlocks; i++)
+        Dictionary<(int, int), terrainType> roomTiles = new Dictionary<(int, int), terrainType>();
+        for (int i = 0; i < horizontalBlocks; i++)
         {
             for(int j = 0; j < verticalBlocks; j++)
             {
                 if(i == 0 && j == 0)
                 {
-                    terrainSet.Add((i, j, terrainType.start));
+                    roomTiles.Add((i, j),terrainType.start);
                 }
                 else if(i == horizontalBlocks-1 && j == verticalBlocks-1)
                 {
-                    terrainSet.Add((i, j, terrainType.end));
+                    roomTiles.Add((i, j), terrainType.end);
                 }
                 else
                 {
-                    terrainSet.Add((i, j, terrainType.traversable));
+                    roomTiles.Add((i, j), terrainType.traversable);
                 }
             }
         }
 
-        return terrainSet;
+        return roomTiles;
     }
 
     // Update is called once per frame
