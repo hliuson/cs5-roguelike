@@ -5,7 +5,7 @@ using System;
 
 public class PlayerController : Combatable {
 
-    public Animator animator;
+    //public Animator animator;
 
     Rigidbody2D body;
 
@@ -96,15 +96,7 @@ public class PlayerController : Combatable {
         {
             verticalSpeed += verticalPress * acceleration;
         }
-<<<<<<< HEAD
-
-         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
-
-=======
-       
-         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed * dashMulti);
-        
->>>>>>> a05a03c (Added some enemy AI stuff with getting closest player and started working on pathfinding as well)
+        body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
     }
 
     // Update is called once per frame
@@ -112,7 +104,7 @@ public class PlayerController : Combatable {
         horizontalPress = Input.GetAxisRaw("Horizontal");
         verticalPress = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("Speed", horizontalPress);
+        //animator.SetFloat("Speed", horizontalPress);
         
         body.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (Input.GetMouseButtonDown(1) && dashTime < -20)
