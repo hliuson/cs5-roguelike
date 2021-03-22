@@ -34,7 +34,7 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
         Dictionary<(int, int), terrainType> roomPositions = getRoomTemplate();
-        foreach (KeyValuePair<(int, int), terrainType> kvp in roomPositions)
+        foreach(KeyValuePair<(int, int), terrainType> kvp in roomPositions)
         {
             (int x, int y) location = kvp.Key;
             terrainType tt = kvp.Value;
@@ -65,7 +65,6 @@ public class LevelGenerator : MonoBehaviour
             bool bottomWall = !roomPositions.ContainsKey((location.x, location.y - 1));
             bool leftWall = !roomPositions.ContainsKey((location.x + 1, location.y));
             bool rightWall = !roomPositions.ContainsKey((location.x - 1, location.y));
-
             if (topWall)
             {
                 Instantiate(borderWall, roomLocation + new Vector3(0, blockSizing / 2, 0), Quaternion.Euler(0, 0, 0));
