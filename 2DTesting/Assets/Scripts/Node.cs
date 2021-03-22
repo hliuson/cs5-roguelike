@@ -8,7 +8,7 @@ public class Node : IHeapItem<Node> {
 	public Vector2 worldPosition;
 	public int gridX;
 	public int gridY;
-	
+
 	//General Cost
 	public int gCost;
 	//Heuristic Cost

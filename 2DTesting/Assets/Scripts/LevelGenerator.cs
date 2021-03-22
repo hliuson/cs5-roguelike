@@ -20,11 +20,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject borderWall;
 
     [SerializeField]
-    public GameObject debugFlagTemp;
-
-    [SerializeField]
     public int verticalBlocks;
-    
+
     [SerializeField]
     public int horizontalBlocks;
 
@@ -44,19 +41,19 @@ public class LevelGenerator : MonoBehaviour
 
             GameObject prefab = null;
             //Instantiate Block
-            if(tt == terrainType.start)
+            if (tt == terrainType.start)
             {
                 prefab = startBlock;
             }
-            if(tt == terrainType.end)
+            if (tt == terrainType.end)
             {
                 prefab = endBlock;
             }
-            if(tt == terrainType.traversable)
+            if (tt == terrainType.traversable)
             {
                 prefab = traversableBlocks[0];//TODO: make this actually random
             }
-            if(tt == terrainType.nontraversable)
+            if (tt == terrainType.nontraversable)
             {
                 prefab = nontraversibleBlocks[0];
             }
@@ -68,7 +65,6 @@ public class LevelGenerator : MonoBehaviour
             bool bottomWall = !roomPositions.ContainsKey((location.x, location.y - 1));
             bool leftWall = !roomPositions.ContainsKey((location.x + 1, location.y));
             bool rightWall = !roomPositions.ContainsKey((location.x - 1, location.y));
-            
             if (topWall)
             {
                 Instantiate(borderWall, roomLocation + new Vector3(0, blockSizing / 2, 0), Quaternion.Euler(0, 0, 0));
@@ -89,18 +85,18 @@ public class LevelGenerator : MonoBehaviour
     }
 
     //Maybe i should just make this a class instead of a tuple lol
-    Dictionary<(int,int),terrainType> getRoomTemplate()
+    Dictionary<(int, int), terrainType> getRoomTemplate()
     {
         Dictionary<(int, int), terrainType> roomTiles = new Dictionary<(int, int), terrainType>();
         for (int i = 0; i < horizontalBlocks; i++)
         {
-            for(int j = 0; j < verticalBlocks; j++)
+            for (int j = 0; j < verticalBlocks; j++)
             {
-                if(i == 0 && j == 0)
+                if (i == 0 && j == 0)
                 {
-                    roomTiles.Add((i, j),terrainType.start);
+                    roomTiles.Add((i, j), terrainType.start);
                 }
-                else if(i == horizontalBlocks-1 && j == verticalBlocks-1)
+                else if (i == horizontalBlocks - 1 && j == verticalBlocks - 1)
                 {
                     roomTiles.Add((i, j), terrainType.end);
                 }
@@ -117,7 +113,7 @@ public class LevelGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
 
