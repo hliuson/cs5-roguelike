@@ -5,6 +5,8 @@ using System;
 
 public class PlayerController : Combatable {
 
+    public Animator animator;
+
     Rigidbody2D body;
 
     float horizontalPress, verticalPress;
@@ -32,7 +34,7 @@ public class PlayerController : Combatable {
     private void FixedUpdate() {
         int horizontalDirection = Math.Sign(horizontalSpeed);//(int)((horizontalSpeed / Math.Abs(horizontalSpeed)));
         int verticalDirection = Math.Sign(verticalSpeed);//(int)((verticalSpeed / Math.Abs(verticalSpeed)));
-        
+
         if (horizontalPress != 0 && verticalPress != 0) {
             //horizontalSpeed *= diagonalLimit;
             //verticalSpeed *= diagonalLimit;
@@ -94,15 +96,18 @@ public class PlayerController : Combatable {
         {
             verticalSpeed += verticalPress * acceleration;
         }
-       
+
          body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
-        
+
     }
 
     // Update is called once per frame
     void Update() {
         horizontalPress = Input.GetAxisRaw("Horizontal");
         verticalPress = Input.GetAxisRaw("Vertical");
+
+        animator.SetFloat("Speed", horizontalPress);
+        
         body.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (Input.GetMouseButtonDown(1) && dashTime < -20)
         {
