@@ -11,7 +11,7 @@ public class Tracker : MonoBehaviour {
 	int targetIndex;
 
 	void Start() {
-		StartCoroutine (refreshPath ());
+		StartCoroutine(refreshPath ());
 	}
 
 	IEnumerator refreshPath() {
@@ -22,11 +22,11 @@ public class Tracker : MonoBehaviour {
 				targetPositionOld = (Vector2)target.position;
 
 				path = Pathfinding.requestPath(transform.position, target.position);
-				StopCoroutine ("FollowPath");
-				StartCoroutine ("FollowPath");
+				StopCoroutine ("followPath");
+				StartCoroutine ("followPath");
 			}
 			//Yeild is used for iterators 
-			yield return new WaitForSeconds (.25f);
+			yield return new WaitForSeconds(.25f);
 		}
 	}
 		
@@ -55,7 +55,7 @@ public class Tracker : MonoBehaviour {
 		if (path != null) {
 			for (int i = targetIndex; i < path.Length; i ++) {
 				Gizmos.color = Color.black;
-				Gizmos.DrawCube((Vector3)path[i], Vector3.one *.5f);
+				//Gizmos.DrawCube((Vector3)path[i], Vector3.one *.5f);
 
 				if (i == targetIndex) {
 					Gizmos.DrawLine(transform.position, path[i]);

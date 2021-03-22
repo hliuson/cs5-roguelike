@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 //From https://www.youtube.com/playlist?list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW
 public class NavGrid : MonoBehaviour {
@@ -10,16 +11,25 @@ public class NavGrid : MonoBehaviour {
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
 	public float nodeRadius;
+	public float seekerRadius;
 
 	Node[,] grid; //2D array
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
+	float nodeBuffer; //To stop colliders from colliding 
+
+	private enum falseBoolean {
+		None,
+		NoDuplicate,
+		Duplicate
+    }
 
 	void Awake() {
 		nodeDiameter = nodeRadius*2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
 
+		nodeBuffer = seekerRadius/nodeDiameter; 
 		createGrid();
 	}
 
@@ -40,10 +50,78 @@ public class NavGrid : MonoBehaviour {
 				bool walkable = (Physics2D.OverlapCircle(worldPoint,nodeRadius,unwalkableMask) == null); // if no collider2D is returned by overlap circle, then this node is walkable
 
 				grid[x,y] = new Node(walkable,worldPoint, x,y);
+
 			}
 		}
+		createBuffer((int)Math.Round(nodeBuffer/2));
 	}
 	
+
+	private void createBuffer(int depth)
+    {
+		falseBoolean[,] tempArray = new falseBoolean[gridSizeX, gridSizeY];
+		foreach(Node node in grid)
+        {
+			if (node.walkable)
+			{
+				tempArray[node.gridX, node.gridY] = falseBoolean.None;
+			}
+			else
+			{
+				tempArray[node.gridX, node.gridY] = falseBoolean.Duplicate;
+			}
+		}
+		
+		//PROBLEM CHILD: DOES THE OPPOSITE OF WHAT IT SHOULD
+		for (int x = 0; x < gridSizeX; x++)
+		{
+			for (int y = 0; y < gridSizeY; y++)
+			{
+				if(tempArray[x,y] == falseBoolean.Duplicate)
+                {
+					for(int i =-depth; i <= depth; i++)
+                    {
+						if ((i + x) < 0 || (i+x) >= gridSizeX) 
+                        {
+							continue;
+                        }
+						for(int j = -depth; j <= depth; j++)
+                        {
+							if ((j + y) < 0 || (j + y) >= gridSizeY)
+							{
+								continue;
+							}
+							if (i == 0 && j ==0)
+                            {
+								continue;
+                            }
+							if(tempArray[(x+i),(y+j)] == falseBoolean.None)
+                            {
+								tempArray[(x + i), (y + j)] = falseBoolean.NoDuplicate;
+							}
+						}
+                    }
+					//tempArray[x, y] = falseBoolean.Duplicate;
+                }
+			}
+		}
+		
+		for (int x = 0; x < gridSizeX; x++)
+		{
+			for (int y = 0; y < gridSizeY; y++)
+			{
+				if (tempArray[x, y] == falseBoolean.None)
+				{
+					grid[x, y].walkable = true;
+					//print(grid[x, y].walkable);
+				}
+				else
+				{
+					grid[x, y].walkable = false;
+				}
+			}
+		}
+    }
 
 	public List<Node> getNeighbours(Node node, int depth = 1) {
 		List<Node> neighbours = new List<Node>();
