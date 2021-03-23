@@ -18,7 +18,7 @@ public class Enemy1AI : Enemy
     //Use fixed update because Update will override what is in Enemy.cs
     private void FixedUpdate()
     {
-        checkAggression();
+        //checkAggression();
         if (currentTarget != null)
         {
             internalCount--;

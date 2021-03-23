@@ -9,19 +9,15 @@ public abstract class Enemy : Combatable
     public float aggressionRadius;
     public Combatable currentTarget;
     public float speed;
-    protected void checkAggression()
+    private void checkAggression()
     {
         Combatable closestEnemy = GetClosestEnemy(targets);
-        if (closestEnemy != null)
+        if (Vector2.Distance(closestEnemy.transform.position, transform.position)  < aggressionRadius)
         {
-            if (Vector2.Distance(closestEnemy.transform.position, transform.position) < aggressionRadius)
-            {
-                currentTarget = closestEnemy;
-            }
-            else
-            {
-                currentTarget = null;
-            }
+            currentTarget = closestEnemy;
+        } else
+        {
+            currentTarget = null;
         }
     }
 
@@ -33,7 +29,7 @@ public abstract class Enemy : Combatable
         foreach (Combatable c in enemies)
         {
             float dist = Vector2.Distance(c.transform.position, currentPos);
-            if (dist < minDist && dist > 0)
+            if (dist < minDist)
             {
                 closest = c;
                 minDist = dist;
@@ -42,21 +38,15 @@ public abstract class Enemy : Combatable
         return closest;
     }
 
-    private Combatable[] getCombatablesInScene()
-    {
-        List<Combatable> temp = new List<Combatable>();
-        GameObject[] allObjects = (GameObject[])GameObject.FindObjectsOfType<GameObject>();
-        foreach (GameObject g in allObjects)
-        {
-            if(g.GetComponent<Combatable>() != null)
-            {
-                temp.Add(g.GetComponent<Combatable>());
-            }
-        }
-        return temp.ToArray();
-    }
     void Update()
     {
-        targets = getCombatablesInScene(); //GetComponentsInChildren<Combatable>(); WHY DOESN'T THIS ONE WORK?
+        //Get all objects in the scene
+        Object[] allObjects = (UnityEngine.Object.FindObjectsOfType(typeof(Combatable)));
+        Combatable[] temp = new Combatable[allObjects.Length];
+        for(int g = 0; g < allObjects.Length; g++)
+        {
+            temp[g] = ((GameObject)allObjects[g]).GetComponent<Combatable>();
+        }
+        targets = temp;
     }
 }
