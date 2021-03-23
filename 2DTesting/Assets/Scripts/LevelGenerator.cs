@@ -86,6 +86,7 @@ public class LevelGenerator : MonoBehaviour
                 Instantiate(borderWall, roomLocation + new Vector3(blockSizing / 2, 0, 0), Quaternion.Euler(0, 0, 270));
             }
         }
+        GetComponent<NavGrid>().wakeUp();
     }
 
     //Maybe i should just make this a class instead of a tuple lol

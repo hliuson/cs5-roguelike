@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5806626958852322416}
   - component: {fileID: -1519589003058107473}
   - component: {fileID: 8348292197372783178}
+  - component: {fileID: 1611103056682936684}
   m_Layer: 0
   m_Name: FireEnemy
   m_TagString: Untagged
@@ -49,6 +50,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -149,3 +151,18 @@ MonoBehaviour:
   aggressionRadius: 10
   currentTarget: {fileID: 0}
   speed: 0
+--- !u!114 &1611103056682936684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960661860414905404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88769caeb721f184bbd953d68883766c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 16.62
+  running: 0

@@ -5,6 +5,7 @@ using System;
 
 public class Enemy1AI : Enemy
 {
+    private Tracker tracker;
     private int internalCount;
     private Rigidbody2D body;
     // Start is called before the first frame update
@@ -12,13 +13,14 @@ public class Enemy1AI : Enemy
     {
         internalCount = 100;
         body = GetComponent<Rigidbody2D>();
-        speed = 10.0f;
+        speed = 10.0f; 
+        tracker = GetComponent<Tracker>();
     }
 
     //Use fixed update because Update will override what is in Enemy.cs
     private void FixedUpdate()
     {
-        //checkAggression();
+        checkAggression();
         if (currentTarget != null)
         {
             internalCount--;
@@ -26,19 +28,16 @@ public class Enemy1AI : Enemy
             {
                 internalCount = 100;
             }
-            /*
-            float targetX = 0;
-            float targetY = 0;
-            float distance = 0;
-            if (currentTarget != null)
+            tracker.target = currentTarget.transform;
+            if (!tracker.running)
             {
-                targetX = currentTarget.transform.position.x;
-                targetY = currentTarget.transform.position.y;
-                distance = Vector2.Distance(currentTarget.transform.position, transform.position);
+                tracker.startFollowing();
             }
-            */
-            //body.velocity = new Vector2((transform.position.x - targetX)/10, (transform.position.y - targetY)/10);
-            transform.position = Vector2.MoveTowards(body.position, currentTarget.transform.position, speed * Time.fixedDeltaTime);
+            //transform.position = Vector2.MoveTowards(body.position, currentTarget.transform.position, speed * Time.fixedDeltaTime);
+        } else
+        {
+            //Stop the coroutine
+            tracker.stopFollowing();
         }
     } 
 

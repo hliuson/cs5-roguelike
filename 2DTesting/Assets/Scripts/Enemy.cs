@@ -9,7 +9,7 @@ public abstract class Enemy : Combatable
     public float aggressionRadius;
     public Combatable currentTarget;
     public float speed;
-    private void checkAggression()
+    protected void checkAggression()
     {
         Combatable closestEnemy = GetClosestEnemy(targets);
         if (Vector2.Distance(closestEnemy.transform.position, transform.position)  < aggressionRadius)
@@ -29,7 +29,7 @@ public abstract class Enemy : Combatable
         foreach (Combatable c in enemies)
         {
             float dist = Vector2.Distance(c.transform.position, currentPos);
-            if (dist < minDist)
+            if (dist < minDist && dist > 0)
             {
                 closest = c;
                 minDist = dist;
@@ -38,15 +38,20 @@ public abstract class Enemy : Combatable
         return closest;
     }
 
-    void Update()
+    private void getAllCombatables()
     {
         //Get all objects in the scene
-        Object[] allObjects = (UnityEngine.Object.FindObjectsOfType(typeof(Combatable)));
-        Combatable[] temp = new Combatable[allObjects.Length];
-        for(int g = 0; g < allObjects.Length; g++)
+        Object[] allObjects = (Object[])(UnityEngine.Object.FindObjectsOfType(typeof(Combatable)));
+        Combatable[] tempArray = new Combatable[allObjects.Length];
+        for (int g = 0; g < allObjects.Length; g++)
         {
-            temp[g] = ((GameObject)allObjects[g]).GetComponent<Combatable>();
+            tempArray[g] = ((Combatable)(allObjects[g])).GetComponent<Combatable>();
         }
-        targets = temp;
+        targets = tempArray;
+    }
+
+    void Update()
+    {
+        getAllCombatables();
     }
 }

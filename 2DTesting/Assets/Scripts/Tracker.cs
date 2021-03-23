@@ -7,30 +7,43 @@ public class Tracker : MonoBehaviour {
 	public Transform target;
 	public float speed = 20;
 
-	Vector2[] path;
-	int targetIndex;
+	public bool running = false;
+
+	private Vector2[] path;
+	private int targetIndex;
 
 	void Start() {
-		StartCoroutine (refreshPath ());
+		StartCoroutine(refreshPath());
 	}
 
-	IEnumerator refreshPath() {
+	public void startFollowing()
+    {
+		running = true;
+		StartCoroutine(refreshPath());
+	}
+
+	public void stopFollowing()
+	{
+		running = false;
+		StopCoroutine(refreshPath());
+	}
+
+	public IEnumerator refreshPath() {
 		Vector2 targetPositionOld = (Vector2)target.position + Vector2.up; // ensure not target.position initially
-			
 		while (true) {
 			if (targetPositionOld != (Vector2)target.position) {
 				targetPositionOld = (Vector2)target.position;
 
 				path = Pathfinding.requestPath(transform.position, target.position);
-				StopCoroutine ("FollowPath");
-				StartCoroutine ("FollowPath");
+				StopCoroutine ("followPath");
+				StartCoroutine ("followPath");
 			}
 			//Yeild is used for iterators 
 			yield return new WaitForSeconds (.25f);
 		}
 	}
 		
-	IEnumerator followPath() {
+	public IEnumerator followPath() {
 		if (path.Length > 0) {
 			targetIndex = 0;
 			Vector2 currentWaypoint = path [0];
@@ -44,7 +57,7 @@ public class Tracker : MonoBehaviour {
 					currentWaypoint = path [targetIndex];
 				}
 
-				transform.position = Vector2.MoveTowards (transform.position, currentWaypoint, speed * Time.deltaTime);
+				transform.position = Vector2.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
 				yield return null;
 
 			}
