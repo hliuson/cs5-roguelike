@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1306544844}
   - component: {fileID: 1306544849}
   - component: {fileID: 1306544850}
+  - component: {fileID: 4468049978922953007}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -231,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 0
+  animator: {fileID: 4468049978922953007}
   acceleration: 2
 --- !u!114 &1306544849
 MonoBehaviour:
@@ -259,3 +261,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Canvas: {fileID: 0}
   paused: 0
+--- !u!95 &4468049978922953007
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031198874071356605}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cabce81865b69904a98e231043be6d20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
