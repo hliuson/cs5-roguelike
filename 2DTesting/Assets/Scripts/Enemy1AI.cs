@@ -15,6 +15,9 @@ public class Enemy1AI : Enemy
         body = GetComponent<Rigidbody2D>();
         speed = 10.0f; 
         tracker = GetComponent<Tracker>();
+        speed = tracker.speed;
+        tracker.buffer = stoppingDistance;
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     //Use fixed update because Update will override what is in Enemy.cs

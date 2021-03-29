@@ -11,9 +11,11 @@ public class Tracker : MonoBehaviour {
 
 	private Vector2[] path;
 	private int targetIndex;
+	public int buffer = 10;
+
 
 	void Start() {
-		StartCoroutine(refreshPath());
+		//StartCoroutine(refreshPath());
 	}
 
 	public void startFollowing()
@@ -34,7 +36,7 @@ public class Tracker : MonoBehaviour {
 			if (targetPositionOld != (Vector2)target.position) {
 				targetPositionOld = (Vector2)target.position;
 
-				path = Pathfinding.requestPath(transform.position, target.position);
+				path = Pathfinding.requestPath(transform.position, target.position, buffer);
 				StopCoroutine ("followPath");
 				StartCoroutine ("followPath");
 			}
@@ -68,7 +70,7 @@ public class Tracker : MonoBehaviour {
 		if (path != null) {
 			for (int i = targetIndex; i < path.Length; i ++) {
 				Gizmos.color = Color.black;
-				Gizmos.DrawCube((Vector3)path[i], Vector3.one *.5f);
+				//Gizmos.DrawCube((Vector3)path[i], Vector3.one *.5f);
 
 				if (i == targetIndex) {
 					Gizmos.DrawLine(transform.position, path[i]);
