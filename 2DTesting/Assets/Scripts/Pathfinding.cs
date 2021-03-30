@@ -15,11 +15,11 @@ public class Pathfinding : MonoBehaviour {
 		instance = this;
 	}
 
-	public static Vector2[] requestPath(Vector2 from, Vector2 to) {
-		return instance.findPath (from, to);
+	public static Vector2[] requestPath(Vector2 from, Vector2 to, int buffer) {
+		return instance.findPath (from, to, buffer);
 	}
 	
-	Vector2[] findPath(Vector2 from, Vector2 to) {
+	Vector2[] findPath(Vector2 from, Vector2 to, int buffer) {
 		
 		
 		Vector2[] waypoints = new Vector2[0];
@@ -27,13 +27,16 @@ public class Pathfinding : MonoBehaviour {
 		
 		Node startNode = grid.nodeFromWorldPoint(from);
 		Node targetNode = grid.nodeFromWorldPoint(to);
+		List<Node> targetNodeArea = grid.getNeighbours(targetNode, buffer);
+		targetNodeArea.Add(targetNode);
+		targetNode = nodeInList(startNode, targetNodeArea);
 		startNode.parent = startNode;
 
 		if (!startNode.walkable) {
 			startNode = grid.closestWalkableNode (startNode);
 		}
 		if (!targetNode.walkable) {
-			targetNode = grid.closestWalkableNode (targetNode);
+			targetNode = grid.closestWalkableNode(targetNode);
 		}
 		
 		if (startNode.walkable && targetNode.walkable) {
@@ -45,7 +48,7 @@ public class Pathfinding : MonoBehaviour {
 			while (openSet.Count > 0) {
 				Node currentNode = openSet.RemoveFirst();
 				closedSet.Add(currentNode);
-				
+
 				if (currentNode == targetNode) {
 					pathSuccess = true;
 					break;
@@ -79,7 +82,23 @@ public class Pathfinding : MonoBehaviour {
 		
 	}
 
-	
+	Node nodeInList(Node currentNode, List<Node> targetNodes)
+    {
+		Node closestNode = null;
+		int minDistance = int.MaxValue;
+		foreach(Node n in targetNodes)
+        {
+			int distance = getDistance(currentNode, n);
+			if (distance < minDistance)
+			{
+				closestNode = n;
+				minDistance = distance;
+			}
+		}
+		return closestNode;
+    }
+
+
 	int turningCost(Node from, Node to) {
 		//Don't think this is needed
 		/*
