@@ -5,8 +5,13 @@ using UnityEngine;
 //Creates a standard framework for enemies and players.
 public abstract class Combatable : MonoBehaviour
 {
+    [SerializeField]
     public float health;
+
+    [SerializeField]
     public float maxHealth;
+
+    [SerializeField]
     public Team team;
     public abstract void attack();
     public void takeDamage(float damage, float knockbackMagnitude, Vector2 knockbackDirection, Combatable source)
@@ -22,7 +27,12 @@ public abstract class Combatable : MonoBehaviour
     public abstract void onDeath(Combatable source);
     public void die()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
+    }
+
+    public Team getTeam()
+    {
+        return team;
     }
 }
 

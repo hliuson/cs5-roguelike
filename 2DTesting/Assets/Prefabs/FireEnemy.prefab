@@ -147,10 +147,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 0
+  team: 1
   targets: []
   aggressionRadius: 10
   currentTarget: {fileID: 0}
   speed: 0
+  stoppingDistance: 0
 --- !u!114 &1611103056682936684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +168,4 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 16.62
   running: 0
+  buffer: 10

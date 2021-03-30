@@ -43,7 +43,7 @@ public class ProjectileScript : MonoBehaviour
                 float y = mousePos.y - selfY;//gets the distance between object and mouse position for y 
 
                 var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(y, x) * Mathf.Rad2Deg)));
-                projectileInst.velocity = new Vector2(speed * x, speed * y);
+                //projectileInst.velocity = new Vector2(speed * x, speed * y);
             }
         }
     }

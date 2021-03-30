@@ -101,12 +101,6 @@ public class PlayerController : Combatable {
         }
 
          body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            attack();
-        }
-
     }
 
     // Update is called once per frame
@@ -121,6 +115,11 @@ public class PlayerController : Combatable {
         {
             dashTime = dashDuration;
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            attack();
+        }
     }
 
     public override void onDeath(Combatable source)
@@ -130,7 +129,9 @@ public class PlayerController : Combatable {
 
     public override void attack()
     {
-        Camera currentCam = this.transform.Find("PlayerCamera").gameObject.GetComponent<Camera>();
+        Transform transform = this.transform;
+
+        Camera currentCam = transform.Find("PlayerCamera").gameObject.GetComponent<Camera>();
         float selfX = transform.position.x;
         float selfY = transform.position.y;
         Vector2 mousePos = Input.mousePosition;//gets mouse postion
