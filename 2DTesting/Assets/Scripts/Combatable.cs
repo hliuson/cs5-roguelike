@@ -7,6 +7,7 @@ public abstract class Combatable : MonoBehaviour
 {
     public float health;
     public float maxHealth;
+    public Team team;
     public abstract void attack();
     public void takeDamage(float damage, float knockbackMagnitude, Vector2 knockbackDirection, Combatable source)
     {
@@ -23,4 +24,10 @@ public abstract class Combatable : MonoBehaviour
     {
         Destroy(this);
     }
+}
+
+public enum Team
+{
+    Player,
+    Enemy
 }

@@ -33,6 +33,8 @@ public class ProjectileScript : MonoBehaviour
             //Making sure it's not a clone
             if (Input.GetMouseButtonDown(0))
             {
+                
+
                 float selfX = transform.position.x;
                 float selfY = transform.position.y;
                 mousePos = Input.mousePosition;//gets mouse postion

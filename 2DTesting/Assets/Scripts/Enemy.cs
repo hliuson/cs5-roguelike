@@ -13,10 +13,18 @@ public abstract class Enemy : Combatable
     protected void checkAggression()
     {
         Combatable closestEnemy = GetClosestEnemy(targets);
-        if (Vector2.Distance(closestEnemy.transform.position, transform.position)  < aggressionRadius)
+        if (closestEnemy != null)
         {
-            currentTarget = closestEnemy;
-        } else
+            if (Vector2.Distance(closestEnemy.transform.position, transform.position) < aggressionRadius)
+            {
+                currentTarget = closestEnemy;
+            }
+            else
+            {
+                currentTarget = null;
+            }
+        }
+        else
         {
             currentTarget = null;
         }
