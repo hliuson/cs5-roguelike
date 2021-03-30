@@ -26,6 +26,9 @@ public class PlayerController : Combatable {
     int dashTime = 0;
     List<PowerUp> powerUpList;
 
+    [SerializeField]
+    public GameObject projectile;
+
     // Start is called before the first frame update
     void Start() {
         body = GetComponent<Rigidbody2D>();
@@ -99,6 +102,11 @@ public class PlayerController : Combatable {
 
          body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            attack();
+        }
+
     }
 
     // Update is called once per frame
@@ -122,7 +130,18 @@ public class PlayerController : Combatable {
 
     public override void attack()
     {
-        Debug.Log("Player Is Attacking");
+        Camera currentCam = this.transform.Find("PlayerCamera").gameObject.GetComponent<Camera>();
+        float selfX = transform.position.x;
+        float selfY = transform.position.y;
+        Vector2 mousePos = Input.mousePosition;//gets mouse postion
+        mousePos = currentCam.ScreenToWorldPoint(mousePos);
+        float x = mousePos.x - selfX;//gets the distance between object and mouse position for x
+        float y = mousePos.y - selfY;//gets the distance between object and mouse position for y 
+
+        var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(y, x) * Mathf.Rad2Deg)));
+        Vector2 vel = new Vector2(x, y).normalized;
+
+        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * projectile.GetComponent<Projectile>().speed;
     }
 
     public void gainPowerUp(PowerUp powerUp)

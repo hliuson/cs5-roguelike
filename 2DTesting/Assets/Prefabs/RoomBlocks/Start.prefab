@@ -38,6 +38,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 43815187296093097}
     m_Modifications:
+    - target: {fileID: 519420028, guid: 4bc4909253f468b40bd82e4f37131353, type: 3}
+      propertyPath: m_Name
+      value: PlayerCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 519420031, guid: 4bc4909253f468b40bd82e4f37131353, type: 3}
       propertyPath: orthographic size
       value: 20

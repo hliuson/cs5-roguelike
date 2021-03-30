@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public abstract class Projectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float damage;
+    public float knockback;
+    public float speed;
+    public Team team;
+    public StatusEffect[] effects;
+    public void onCollision(Combatable entity)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FixedUpdate()
     {
-        
+
     }
 }
