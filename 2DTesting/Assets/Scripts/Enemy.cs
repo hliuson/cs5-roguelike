@@ -42,7 +42,7 @@ public abstract class Enemy : Combatable
     private void getAllCombatables()
     {
         //Get all objects in the scene
-        Object[] allObjects = (Object[])(UnityEngine.Object.FindObjectsOfType(typeof(Combatable)));
+        Object[] allObjects = FindObjectsOfType(typeof(Combatable));
         Combatable[] tempArray = new Combatable[allObjects.Length];
         for (int g = 0; g < allObjects.Length; g++)
         {
