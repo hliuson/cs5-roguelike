@@ -5,14 +5,23 @@ using System.Collections;
 public class Tracker : MonoBehaviour {
 	
 	public Transform target;
-	public float speed = 20;
+	private float speed = 20;
 
 	public bool running = false;
 
 	private Vector2[] path;
 	private int targetIndex;
-	public int buffer = 10;
+	private int buffer = 10;
 
+	public void setSpeed(float speed)
+    {
+		this.speed = speed;
+    }
+
+	public void setBuffer(int buffer)
+	{
+		this.buffer = buffer;
+	}
 
 	void Start() {
 		//StartCoroutine(refreshPath());
