@@ -10,6 +10,11 @@ public abstract class Enemy : Combatable
     public Combatable currentTarget;
     public float speed;
     public int stoppingDistance; //How far away you want the enemy to stop from the player, to attack or other things
+
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected void checkAggression()
     {
         Combatable closestEnemy = GetClosestEnemy(targets);

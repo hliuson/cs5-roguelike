@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
+    public Rigidbody2D body;
+
     [SerializeField]
     public float damage;
 
@@ -17,6 +19,13 @@ public abstract class Projectile : MonoBehaviour
     public Team team;
 
     public StatusEffect[] effects;
+    public Combatable source;
+
+    void Start()
+    {
+        body = GetComponent<Rigidbody2D>();
+    }
+
     public void onCollision(Combatable entity)
     {
 
@@ -42,7 +51,9 @@ public abstract class Projectile : MonoBehaviour
             return;
         }
 
-        //TODO: Inflict Damage, knockback, status effects
+        //TODO: Inflict Damage, knockb/ack, status effects
+        Vector2 knockbackDirection = body.velocity;
+        entity.takeDamage(this.damage, this.knockback, knockbackDirection, this.source);
         Destroy(this.gameObject);
     }
 

@@ -118,10 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b4715aab5975541b7e89a15c1c4b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  body: {fileID: 0}
+  damage: 1
   knockback: 5
   speed: 20
   team: 0
+  source: {fileID: 0}
 --- !u!70 &4091950143286168313
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

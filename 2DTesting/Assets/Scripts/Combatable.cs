@@ -14,9 +14,20 @@ public abstract class Combatable : MonoBehaviour
     [SerializeField]
     public Team team;
     public abstract void attack();
+
+    public Rigidbody2D body;
+
+    protected virtual void Start()
+    {
+        body = GetComponent<Rigidbody2D>();
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
     public void takeDamage(float damage, float knockbackMagnitude, Vector2 knockbackDirection, Combatable source)
     {
         this.health = this.health - damage;
+        Vector2 knockback = knockbackDirection.normalized*knockbackMagnitude;
+        body.velocity = body.velocity + knockback;
         if (this.health <= 0)
         {
             onDeath(source);

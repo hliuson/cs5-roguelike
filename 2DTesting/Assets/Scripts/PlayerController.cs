@@ -142,7 +142,10 @@ public class PlayerController : Combatable {
         var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(y, x) * Mathf.Rad2Deg)));
         Vector2 vel = new Vector2(x, y).normalized;
 
-        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * projectile.GetComponent<Projectile>().speed;
+        Projectile proj = projectileInst.GetComponent<Projectile>();
+
+        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
+        proj.source = this;
     }
 
     public void gainPowerUp(PowerUp powerUp)

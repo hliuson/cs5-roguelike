@@ -7,17 +7,16 @@ public class Enemy1AI : Enemy
 {
     private Tracker tracker;
     private int internalCount;
-    private Rigidbody2D body;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         internalCount = 100;
-        body = GetComponent<Rigidbody2D>();
         speed = 10.0f; 
         tracker = GetComponent<Tracker>();
         speed = tracker.speed;
         tracker.buffer = stoppingDistance;
-        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        
     }
 
     //Use fixed update because Update will override what is in Enemy.cs
