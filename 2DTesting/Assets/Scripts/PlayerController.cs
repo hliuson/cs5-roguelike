@@ -7,8 +7,6 @@ public class PlayerController : Combatable {
 
     public Animator animator;
 
-    Rigidbody2D body;
-
     float horizontalPress, verticalPress;
 
     float horizontalSpeed = 0, verticalSpeed = 0;
@@ -30,9 +28,6 @@ public class PlayerController : Combatable {
     public GameObject projectile;
 
     // Start is called before the first frame update
-    void Start() {
-        body = GetComponent<Rigidbody2D>();
-    }
 
     private void FixedUpdate() {
         int horizontalDirection = Math.Sign(horizontalSpeed);//(int)((horizontalSpeed / Math.Abs(horizontalSpeed)));
@@ -111,7 +106,6 @@ public class PlayerController : Combatable {
         animator.SetFloat("Speed", horizontalPress);
         animator.SetFloat("VSpeed", verticalPress);
 
-        body.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (Input.GetMouseButtonDown(1) && dashTime < -20)
         {
             dashTime = dashDuration;

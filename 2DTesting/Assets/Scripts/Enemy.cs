@@ -61,7 +61,15 @@ public abstract class Enemy : Combatable
         {
             tempArray[g] = ((Combatable)(allObjects[g])).GetComponent<Combatable>();
         }
-        targets = tempArray;
+        List<Combatable> enemies = new List<Combatable>();
+        foreach(Combatable c in tempArray)
+        {
+            if(c.team == Team.Player)
+            {
+                enemies.Add(c);
+            }
+        }
+        targets = enemies.ToArray();
     }
 
     void Update()
