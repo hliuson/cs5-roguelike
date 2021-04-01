@@ -19,15 +19,15 @@ public abstract class Combatable : MonoBehaviour
 
     protected virtual void Start()
     {
-        body = GetComponent<Rigidbody2D>();
-        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        this.body = GetComponent<Rigidbody2D>();
+        this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void takeDamage(float damage, float knockbackMagnitude, Vector2 knockbackDirection, Combatable source)
     {
         this.health = this.health - damage;
         Vector2 knockback = knockbackDirection.normalized*knockbackMagnitude;
-        body.velocity = body.velocity + knockback;
+        this.body.AddForce(knockback, ForceMode2D.Impulse);
         if (this.health <= 0)
         {
             onDeath(source);
