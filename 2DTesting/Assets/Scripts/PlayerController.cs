@@ -109,6 +109,7 @@ public class PlayerController : Combatable {
         verticalPress = Input.GetAxisRaw("Vertical");
 
         animator.SetFloat("Speed", horizontalPress);
+        animator.SetFloat("VSpeed", verticalPress);
 
         body.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (Input.GetMouseButtonDown(1) && dashTime < -20)
@@ -137,7 +138,7 @@ public class PlayerController : Combatable {
         Vector2 mousePos = Input.mousePosition;//gets mouse postion
         mousePos = currentCam.ScreenToWorldPoint(mousePos);
         float x = mousePos.x - selfX;//gets the distance between object and mouse position for x
-        float y = mousePos.y - selfY;//gets the distance between object and mouse position for y 
+        float y = mousePos.y - selfY;//gets the distance between object and mouse position for y
 
         var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(y, x) * Mathf.Rad2Deg)));
         Vector2 vel = new Vector2(x, y).normalized;
