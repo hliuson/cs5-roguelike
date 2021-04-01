@@ -52,7 +52,7 @@ public class Enemy1AI : Enemy
 
         while (timeElapsed < dashTime)
         {
-            body.position = Vector2.Lerp(body.position, currentTarget.transform.position, timeElapsed/dashTime);
+            this.body.position = Vector2.Lerp(body.position, currentTarget.transform.position, timeElapsed/dashTime);
             timeElapsed += Time.deltaTime;
 
             yield return null;

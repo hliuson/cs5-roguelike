@@ -7,8 +7,6 @@ public class PlayerController : Combatable {
 
     public Animator animator;
 
-    Rigidbody2D body;
-
     float horizontalPress, verticalPress;
 
     float horizontalSpeed = 0, verticalSpeed = 0;
@@ -30,8 +28,8 @@ public class PlayerController : Combatable {
     public GameObject projectile;
 
     // Start is called before the first frame update
-    void Start() {
-        body = GetComponent<Rigidbody2D>();
+    protected override void Start() {
+        base.Start();
     }
 
     private void FixedUpdate() {
@@ -100,7 +98,7 @@ public class PlayerController : Combatable {
             verticalSpeed += verticalPress * acceleration;
         }
 
-         body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
+         this.body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
     }
 
     // Update is called once per frame
@@ -111,7 +109,7 @@ public class PlayerController : Combatable {
         animator.SetFloat("Speed", horizontalPress);
         animator.SetFloat("VSpeed", verticalPress);
 
-        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (Input.GetMouseButtonDown(1) && dashTime < -20)
         {
             dashTime = dashDuration;
@@ -119,7 +117,7 @@ public class PlayerController : Combatable {
 
         if (Input.GetMouseButtonDown(0))
         {
-            attack();
+            this.tryAttack();
         }
     }
 

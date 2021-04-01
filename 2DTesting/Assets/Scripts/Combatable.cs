@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,9 +17,15 @@ public abstract class Combatable : MonoBehaviour
     public abstract void attack();
 
     public Rigidbody2D body;
+    private Stopwatch attackStopwatch;
+
+    [SerializeField]
+    public float attackCooldownMs;
 
     protected virtual void Start()
     {
+        this.attackStopwatch = new Stopwatch();
+        this.attackStopwatch.Start();
         this.body = GetComponent<Rigidbody2D>();
         this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -44,6 +51,20 @@ public abstract class Combatable : MonoBehaviour
     public Team getTeam()
     {
         return team;
+    }
+
+    protected void tryAttack()
+    {
+        if (attackStopwatch.ElapsedMilliseconds < attackCooldownMs)
+        {
+            return;
+        }
+        else
+        {
+            attackStopwatch.Reset();
+            attackStopwatch.Start();
+            attack();
+        }
     }
 }
 

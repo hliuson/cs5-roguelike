@@ -235,6 +235,7 @@ MonoBehaviour:
   maxHealth: 0
   team: 0
   body: {fileID: 0}
+  attackCooldownMs: 250
   animator: {fileID: 4468049978922953007}
   acceleration: 2
   projectile: {fileID: 6323747301544436955, guid: f7c7fb3bbd7fe2449af68ff002fec420,
