@@ -1,20 +1,22 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Enemy1AI : Enemy
+public class Enemy2AI : Enemy
 {
+    [SerializeField]
+    private GameObject projectile;
+
     private Tracker tracker;
     private int internalCount;
-    private float dashTime = 0.2f;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        internalCount = 100;
-        speed = 10.0f; 
+        internalCount = 50;
+        speed = 10.0f;
         tracker = GetComponent<Tracker>();
         tracker.setSpeed(speed);
         tracker.setBuffer(stoppingDistance);
@@ -24,13 +26,12 @@ public class Enemy1AI : Enemy
     private void FixedUpdate()
     {
         checkAggression();
-        //Internal count is there for attack and other things
         if (currentTarget != null)
         {
             internalCount--;
             if (internalCount < 0)
             {
-                internalCount = 100;
+                internalCount = 50;
                 print("ATTACK");
                 attack();
             }
@@ -40,37 +41,35 @@ public class Enemy1AI : Enemy
                 tracker.startFollowing();
             }
             //transform.position = Vector2.MoveTowards(body.position, currentTarget.transform.position, speed * Time.fixedDeltaTime);
-        } else
+        }
+        else
         {
             //Stop the coroutine
             tracker.stopFollowing();
         }
     }
 
-    //Has to be done over multiple frames
-    private IEnumerator PerformDash()
+
+    public override void attack()
     {
-        float timeElapsed = 0.0f;
+        //Get positions of everything
+        float selfX = transform.position.x;
+        float selfY = transform.position.y;
+        float targetX = currentTarget.transform.position.x;
+        float targetY = currentTarget.transform.position.y;
+        float x = targetX - selfX;//gets the distance between object and target position for x
+        float y = targetY - selfY;//gets the distance between object and target position for y 
+        //Create a clone with the correct angle
+        var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(-y, -x) * Mathf.Rad2Deg)));
+        //Fire the projectile at a constant speed
+        Vector2 vel = new Vector2(x, y).normalized;
 
-        while (timeElapsed < dashTime)
-        {
-            this.body.position = Vector2.Lerp(body.position, currentTarget.transform.position, timeElapsed/dashTime);
-            timeElapsed += Time.deltaTime;
+        Projectile proj = projectileInst.GetComponent<Projectile>();
 
-            yield return null;
-        }
-        
-        yield return null;
-    }
+        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
+        proj.source = this;
 
-    public override void attack() 
-    {
-        tracker.stopFollowing();
-        StartCoroutine(PerformDash());
-        //Dash attack try and hit the player
-        //Vector2 targetLocation = currentTarget.transform.position;
-        // body.position = Vector2.MoveTowards(body.position, targetLocation, 10* Time.deltaTime);
-        tracker.startFollowing();
+
     }
 
     public override void onDeath(Combatable source)

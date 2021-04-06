@@ -7,6 +7,7 @@ public class Tracker : MonoBehaviour {
 	public Transform target;
 	private float speed = 20;
 
+	//Used to stop and start couroutine and make sure something doesn't get broken
 	public bool running = false;
 
 	private Vector2[] path;
@@ -26,13 +27,13 @@ public class Tracker : MonoBehaviour {
 	void Start() {
 		//StartCoroutine(refreshPath());
 	}
-
+	//For outside use
 	public void startFollowing()
     {
 		running = true;
 		StartCoroutine(refreshPath());
 	}
-
+	//For outside use
 	public void stopFollowing()
 	{
 		running = false;
@@ -53,7 +54,8 @@ public class Tracker : MonoBehaviour {
 			yield return new WaitForSeconds (.25f);
 		}
 	}
-		
+	
+	//Has to be done in many frames so it's a coroutine
 	public IEnumerator followPath() {
 		if (path.Length > 0) {
 			targetIndex = 0;
@@ -74,7 +76,7 @@ public class Tracker : MonoBehaviour {
 			}
 		}
 	}
-
+	//Debuging thing used to see path
 	public void OnDrawGizmos() {
 		if (path != null) {
 			for (int i = targetIndex; i < path.Length; i ++) {

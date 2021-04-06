@@ -110,7 +110,10 @@ public class PlayerController : Combatable {
         animator.SetFloat("Speed", horizontalPress);
         animator.SetFloat("VSpeed", verticalPress);
 
+<<<<<<< HEAD
         this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
+=======
+>>>>>>> 0e9fc9641baa38b31d078126a8d9f0d0686f1700
         if (Input.GetMouseButtonDown(1) && dashTime < -20)
         {
             dashTime = dashDuration;
