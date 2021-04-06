@@ -40,6 +40,7 @@ public abstract class Enemy : Combatable
         Combatable closest = null;
         float minDist = Mathf.Infinity;
         Vector2 currentPos = transform.position;
+        //Find closest enemy that isn't you
         foreach (Combatable c in enemies)
         {
             float dist = Vector2.Distance(c.transform.position, currentPos);
@@ -54,13 +55,15 @@ public abstract class Enemy : Combatable
 
     private void getAllCombatables()
     {
-        //Get all objects in the scene
+        //Get all objects in the scene of type combatable
         Object[] allObjects = FindObjectsOfType(typeof(Combatable));
         Combatable[] tempArray = new Combatable[allObjects.Length];
+        //Turn then into combatables
         for (int g = 0; g < allObjects.Length; g++)
         {
             tempArray[g] = ((Combatable)(allObjects[g])).GetComponent<Combatable>();
         }
+        //Make sure they are on the other team
         List<Combatable> enemies = new List<Combatable>();
         foreach(Combatable c in tempArray)
         {

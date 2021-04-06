@@ -19,6 +19,7 @@ public class NavGrid : MonoBehaviour
 	int gridSizeX, gridSizeY;
 	float nodeBuffer; //To stop colliders from colliding 
 
+	//Used for creating a buffer so colliders don't interfere with pathfinding
 	private enum falseBoolean
 	{
 		None,
@@ -26,6 +27,7 @@ public class NavGrid : MonoBehaviour
 		Duplicate
 	}
 
+	//Here to be called after the level is generated
 	public void wakeUp()
     {
 		nodeDiameter = nodeRadius * 2;
@@ -74,7 +76,7 @@ public class NavGrid : MonoBehaviour
 		createBuffer((int)Math.Round(nodeBuffer / 2));
 	}
 
-
+	//Actually makes the buffer
 	private void createBuffer(int depth)
 	{
 		falseBoolean[,] tempArray = new falseBoolean[gridSizeX, gridSizeY];
@@ -246,6 +248,7 @@ public class NavGrid : MonoBehaviour
 		return x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY;
 	}
 
+	//Used for debugging reasons
 	void OnDrawGizmos()
 	{
 		Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));

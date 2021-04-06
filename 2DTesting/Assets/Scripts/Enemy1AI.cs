@@ -24,6 +24,7 @@ public class Enemy1AI : Enemy
     private void FixedUpdate()
     {
         checkAggression();
+        //Internal count is there for attack and other things
         if (currentTarget != null)
         {
             internalCount--;
@@ -46,6 +47,7 @@ public class Enemy1AI : Enemy
         }
     }
 
+    //Has to be done over multiple frames
     private IEnumerator PerformDash()
     {
         float timeElapsed = 0.0f;

@@ -15,7 +15,7 @@ public class Enemy2AI : Enemy
     protected override void Start()
     {
         base.Start();
-        internalCount = 100;
+        internalCount = 50;
         speed = 10.0f;
         tracker = GetComponent<Tracker>();
         tracker.setSpeed(speed);
@@ -31,7 +31,7 @@ public class Enemy2AI : Enemy
             internalCount--;
             if (internalCount < 0)
             {
-                internalCount = 100;
+                internalCount = 50;
                 print("ATTACK");
                 attack();
             }
@@ -52,24 +52,24 @@ public class Enemy2AI : Enemy
 
     public override void attack()
     {
-        if (!(gameObject.name.Contains("(Clone)")))
-        {
-            float selfX = transform.position.x;
-            float selfY = transform.position.y;
-            float targetX = currentTarget.transform.position.x;
-            float targetY = currentTarget.transform.position.y;
-            float x = targetX - selfX;//gets the distance between object and target position for x
-            float y = targetY - selfY;//gets the distance between object and target position for y 
+        //Get positions of everything
+        float selfX = transform.position.x;
+        float selfY = transform.position.y;
+        float targetX = currentTarget.transform.position.x;
+        float targetY = currentTarget.transform.position.y;
+        float x = targetX - selfX;//gets the distance between object and target position for x
+        float y = targetY - selfY;//gets the distance between object and target position for y 
+        //Create a clone with the correct angle
+        var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(-y, -x) * Mathf.Rad2Deg)));
+        //Fire the projectile at a constant speed
+        Vector2 vel = new Vector2(x, y).normalized;
 
-            var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(-y, -x) * Mathf.Rad2Deg)));
-            Vector2 vel = new Vector2(x, y).normalized;
+        Projectile proj = projectileInst.GetComponent<Projectile>();
 
-            Projectile proj = projectileInst.GetComponent<Projectile>();
+        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
+        proj.source = this;
 
-            projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
-            proj.source = this;
 
-        }
     }
 
     public override void onDeath(Combatable source)
