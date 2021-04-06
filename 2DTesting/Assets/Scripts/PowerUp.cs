@@ -1,14 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public abstract class PowerUp : MonoBehaviour
+public abstract class PowerUp
 {
-    public static Rarity rarity;
-    public static string name;
-    public abstract void onPickup();
+    public PowerUp()
+    {
+    }
+    public Rarity rarity;
+    public abstract void onPickup(PlayerController player);
+    public abstract void onRemoval(PlayerController player);
+    public abstract void onAttack(PlayerController player, Projectile projectile);
 }
+
 
 public enum Rarity
 {

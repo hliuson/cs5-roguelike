@@ -30,6 +30,7 @@ public class PlayerController : Combatable {
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
+        this.powerUpList = new List<PowerUp>();
     }
 
     private void FixedUpdate() {
@@ -142,13 +143,39 @@ public class PlayerController : Combatable {
         Vector2 vel = new Vector2(x, y).normalized;
 
         Projectile proj = projectileInst.GetComponent<Projectile>();
+        
 
         projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
         proj.source = this;
+
+        foreach (PowerUp p in this.powerUpList)
+        {
+            p.onAttack(this, proj);
+        }
     }
 
+    public void backupData()
+    {
+        SceneChangeData.playerPowerUps = this.powerUpList;
+    }
+
+    public void loadData()
+    {
+        this.powerUpList = SceneChangeData.playerPowerUps;
+        foreach (PowerUp p in this.powerUpList)
+        {
+            p.onPickup(this);
+        }
+    }
+
+    public void removePowerUp(PowerUp powerUp)
+    {
+        powerUp.onRemoval(this);
+        this.powerUpList.Remove(powerUp);
+    }
     public void gainPowerUp(PowerUp powerUp)
     {
-        powerUpList.Add(powerUp);
+        this.powerUpList.Add(powerUp);
+        powerUp.onPickup(this);
     }
 }

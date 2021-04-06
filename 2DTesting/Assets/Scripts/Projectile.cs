@@ -23,7 +23,7 @@ public abstract class Projectile : MonoBehaviour
 
     void Start()
     {
-        body = GetComponent<Rigidbody2D>();
+        this.body = GetComponent<Rigidbody2D>();
     }
 
     public void onCollision(Combatable entity)

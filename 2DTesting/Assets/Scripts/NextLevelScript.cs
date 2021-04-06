@@ -22,7 +22,12 @@ public class NextLevelScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        PlayerController player = col.gameObject.GetComponent<PlayerController>();
+        if (player == null)
+        {
+            return;
+        }
+        player.backupData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        //SceneManager.LoadScene("SampleScene");
     }
 }
