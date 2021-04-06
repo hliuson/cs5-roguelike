@@ -38,7 +38,6 @@ public abstract class Projectile : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-
         Combatable entity = col.gameObject.GetComponent<Combatable>();
         if (entity == null)
         {
@@ -50,7 +49,6 @@ public abstract class Projectile : MonoBehaviour
         {
             return;
         }
-
         //TODO: Inflict Damage, knockb/ack, status effects
         Vector2 knockbackDirection = body.velocity;
         entity.takeDamage(this.damage, this.knockback, knockbackDirection, this.source);

@@ -6,7 +6,7 @@ using System;
 public class Enemy2AI : Enemy
 {
     [SerializeField]
-    private EnemyProjectile projectile;
+    private GameObject projectile;
 
     private Tracker tracker;
     private int internalCount;
@@ -52,7 +52,24 @@ public class Enemy2AI : Enemy
 
     public override void attack()
     {
-        projectile.shootProjectile();
+        if (!(gameObject.name.Contains("(Clone)")))
+        {
+            float selfX = transform.position.x;
+            float selfY = transform.position.y;
+            float targetX = currentTarget.transform.position.x;
+            float targetY = currentTarget.transform.position.y;
+            float x = targetX - selfX;//gets the distance between object and target position for x
+            float y = targetY - selfY;//gets the distance between object and target position for y 
+
+            var projectileInst = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(-y, -x) * Mathf.Rad2Deg)));
+            Vector2 vel = new Vector2(x, y).normalized;
+
+            Projectile proj = projectileInst.GetComponent<Projectile>();
+
+            projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
+            proj.source = this;
+
+        }
     }
 
     public override void onDeath(Combatable source)
