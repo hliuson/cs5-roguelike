@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 9031198874071356578}
   - component: {fileID: 1306544845}
   - component: {fileID: 1306544844}
-  - component: {fileID: 1306544849}
   - component: {fileID: 1306544850}
   - component: {fileID: 4468049978922953007}
   m_Layer: 0
@@ -232,27 +231,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  maxHealth: 5
+  maxHealth: 10
   team: 0
   body: {fileID: 0}
   attackCooldownMs: 250
+  healthbar: {fileID: 2004350720062165082, guid: e261bfe60b866a049b4d726d2cefad23,
+    type: 3}
   animator: {fileID: 4468049978922953007}
   acceleration: 2
   projectile: {fileID: 6323747301544436955, guid: f7c7fb3bbd7fe2449af68ff002fec420,
     type: 3}
---- !u!114 &1306544849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9031198874071356605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f1691da2121e6b41b70c1ac362b055a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
 --- !u!114 &1306544850
 MonoBehaviour:
   m_ObjectHideFlags: 0

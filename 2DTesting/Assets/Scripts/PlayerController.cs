@@ -5,6 +5,8 @@ using System;
 
 public class PlayerController : Combatable {
 
+    public Health healthbar;
+
     public Animator animator;
 
     float horizontalPress, verticalPress;
@@ -30,6 +32,7 @@ public class PlayerController : Combatable {
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
+        healthbar = (Health)FindObjectOfType(typeof(Health));
         this.powerUpList = new List<PowerUp>();
     }
 
@@ -120,6 +123,9 @@ public class PlayerController : Combatable {
         {
             this.tryAttack();
         }
+
+        //Potion Stuff
+        healthbar.health = (int)health;
     }
 
     public override void onDeath(Combatable source)

@@ -10,10 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2004350720062165083}
   - component: {fileID: 2004350720062165082}
-  - component: {fileID: 2004350720062165081}
-  - component: {fileID: 2004350720062165080}
-  - component: {fileID: 2235000621405236599}
-  - component: {fileID: 4487654883634245191}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -47,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55bb46dc0ed23f4998f9ac43bdecad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  health: -427
   numOfHearts: 5
   hearts:
   - {fileID: 0}
@@ -57,78 +53,3 @@ MonoBehaviour:
   - {fileID: 0}
   fullHeart: {fileID: 21300000, guid: caec06de4f3859042af969c4cd19caa3, type: 3}
   emptyHeart: {fileID: 21300000, guid: d0ada107047c4944d91618eb6e7ac57f, type: 3}
---- !u!70 &2004350720062165081
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004350720062165077}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
-  m_Direction: 0
---- !u!114 &2004350720062165080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004350720062165077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d121af433505a16479566bf8ec309c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  team: 0
-  body: {fileID: 0}
-  animator: {fileID: 0}
-  acceleration: 2
-  projectile: {fileID: 0}
---- !u!50 &2235000621405236599
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004350720062165077}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!95 &4487654883634245191
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004350720062165077}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4b6df30df37b3de40810c4f55ad73a06, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0

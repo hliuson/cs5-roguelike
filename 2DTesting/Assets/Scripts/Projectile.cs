@@ -49,6 +49,10 @@ public abstract class Projectile : MonoBehaviour
         {
             return;
         }
+        if(this.team == Team.Enemy)
+        {
+            print(entity.getTeam());
+        }
         //TODO: Inflict Damage, knockb/ack, status effects
         Vector2 knockbackDirection = body.velocity;
         entity.takeDamage(this.damage, this.knockback, knockbackDirection, this.source);
