@@ -13,7 +13,7 @@ public class Enemy1AI : Enemy
     protected override void Start()
     {
         base.Start();
-        internalCount = 100;
+        internalCount = (int)attackCooldownMs;
         speed = 10.0f; 
         tracker = GetComponent<Tracker>();
         tracker.setSpeed(speed);
@@ -30,8 +30,7 @@ public class Enemy1AI : Enemy
             internalCount--;
             if (internalCount < 0)
             {
-                internalCount = 100;
-                print("ATTACK");
+                internalCount = (int)attackCooldownMs;
                 attack();
             }
             tracker.target = currentTarget.transform;
