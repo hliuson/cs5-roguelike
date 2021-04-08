@@ -13,6 +13,8 @@ public abstract class Enemy : Combatable
 
     protected override void Start()
     {
+        float nodeRadius = ((NavGrid)FindObjectOfType(typeof(NavGrid))).nodeRadius;
+        stoppingDistance = (int)(stoppingDistance / nodeRadius);
         base.Start();
     }
     protected void checkAggression()
