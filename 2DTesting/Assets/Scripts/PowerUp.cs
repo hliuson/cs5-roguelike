@@ -8,9 +8,21 @@ public abstract class PowerUp
     {
     }
     public Rarity rarity;
-    public abstract void onPickup(PlayerController player);
-    public abstract void onRemoval(PlayerController player);
-    public abstract void onAttack(PlayerController player, Projectile projectile);
+
+    public virtual void onPickup(PlayerController player)
+    {
+
+    }
+
+    public virtual void onRemoval(PlayerController player)
+    {
+
+    }
+
+    public virtual void onAttack(PlayerController player, Projectile projectile)
+    {
+
+    }
 }
 
 
