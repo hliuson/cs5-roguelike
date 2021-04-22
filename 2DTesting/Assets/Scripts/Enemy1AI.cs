@@ -9,6 +9,12 @@ public class Enemy1AI : Enemy
     private int internalCount;
     private float dashTime = 0.2f;
 
+    [SerializeField]
+    private int dashDamage;
+
+    [SerializeField]
+    private int dashKnockback;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -67,9 +73,23 @@ public class Enemy1AI : Enemy
         tracker.stopFollowing();
         StartCoroutine(PerformDash());
         //Dash attack try and hit the player
-        //Vector2 targetLocation = currentTarget.transform.position;
-        // body.position = Vector2.MoveTowards(body.position, targetLocation, 10* Time.deltaTime);
         tracker.startFollowing();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Combatable entity = collision.gameObject.GetComponent<Combatable>();
+        if (entity == null)
+        {
+            return;
+        }
+        if (entity.getTeam() == this.team)
+        {
+            return;
+        }
+        print("Hit");
+        Vector2 knockbackDirection = body.velocity;
+        entity.takeDamage(dashDamage, dashKnockback, knockbackDirection, this);
     }
 
     public override void onDeath(Combatable source)
