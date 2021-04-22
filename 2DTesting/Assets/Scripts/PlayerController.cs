@@ -23,6 +23,9 @@ public class PlayerController : Combatable {
     private float dashMulti = 1.0f;
     public const float dashSpeed = 50.0f;
     public const int dashDuration = 10;
+
+    private float speedMultiplier = 1f;
+
     int dashTime = 0;
     List<PowerUp> powerUpList;
 
@@ -102,7 +105,7 @@ public class PlayerController : Combatable {
             verticalSpeed += verticalPress * acceleration;
         }
 
-         this.body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
+         this.body.velocity = new Vector2(horizontalSpeed * dashMulti * speedMultiplier, verticalSpeed*dashMulti* speedMultiplier);
     }
 
     // Update is called once per frame
@@ -183,5 +186,9 @@ public class PlayerController : Combatable {
     {
         this.powerUpList.Add(powerUp);
         powerUp.onPickup(this);
+    }
+    public void incrementSpeedMultiplier(float increment)
+    {
+        this.speedMultiplier += increment;
     }
 }

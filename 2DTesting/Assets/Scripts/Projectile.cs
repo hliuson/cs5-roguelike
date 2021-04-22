@@ -18,6 +18,8 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField]
     public Team team;
 
+    private float damageMultiplier = 1;
+
     public StatusEffect[] effects;
     public Combatable source;
 
@@ -34,6 +36,11 @@ public abstract class Projectile : MonoBehaviour
     public void FixedUpdate()
     {
 
+    }
+    
+    public void incrementDamageMultiplier(float increment)
+    {
+        this.damageMultiplier += increment;
     }
 
     public void OnTriggerEnter2D(Collider2D col)
@@ -57,7 +64,7 @@ public abstract class Projectile : MonoBehaviour
         }
         //TODO: Inflict Damage, knockb/ack, status effects
         Vector2 knockbackDirection = body.velocity;
-        entity.takeDamage(this.damage, this.knockback, knockbackDirection, this.source);
+        entity.takeDamage(this.damage*this.damageMultiplier, this.knockback, knockbackDirection, this.source);
         Destroy(this.gameObject);
     }
 
