@@ -26,6 +26,11 @@ public class Enemy1AI : Enemy
         tracker.setBuffer(stoppingDistance);
     }
 
+    public override void attack2()
+    {
+        //Implimented because it may be used later
+    }
+
     //Use fixed update because Update will override what is in Enemy.cs
     private void FixedUpdate()
     {

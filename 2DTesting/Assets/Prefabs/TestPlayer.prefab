@@ -241,6 +241,11 @@ MonoBehaviour:
   acceleration: 2
   projectile: {fileID: 6323747301544436955, guid: f7c7fb3bbd7fe2449af68ff002fec420,
     type: 3}
+  attackTime: 0
+  startTimeAttack: 0.3
+  attackRange: 6
+  meleeDamage: 2
+  knockback: 10
 --- !u!114 &1306544850
 MonoBehaviour:
   m_ObjectHideFlags: 0

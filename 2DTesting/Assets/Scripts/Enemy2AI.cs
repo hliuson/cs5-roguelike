@@ -48,6 +48,10 @@ public class Enemy2AI : Enemy
         }
     }
 
+    public override void attack2()
+    {
+        //Implimented because it may be used later
+    }
 
     public override void attack()
     {
