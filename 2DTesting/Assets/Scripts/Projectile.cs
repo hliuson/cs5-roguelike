@@ -38,6 +38,12 @@ public abstract class Projectile : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
+        Projectile proj = col.gameObject.GetComponent<Projectile>();
+        if (proj != null)
+        {
+            return;
+        }
+
         Combatable entity = col.gameObject.GetComponent<Combatable>();
         if (entity == null)
         {
