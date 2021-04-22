@@ -163,7 +163,7 @@ MonoBehaviour:
   maxHealth: 5
   team: 1
   body: {fileID: 0}
-  attackCooldownMs: 0
+  attackCooldownMs: 50
   targets: []
   aggressionRadius: 20
   currentTarget: {fileID: 0}
