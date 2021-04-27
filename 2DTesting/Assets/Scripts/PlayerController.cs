@@ -122,7 +122,8 @@ public class PlayerController : Combatable {
             dashTime = dashDuration;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0)) //Allows users to hold mouse down to attack
         {
             this.tryAttack();
         }

@@ -51,6 +51,12 @@ public abstract class Projectile : MonoBehaviour
             return;
         }
 
+        PowerUpComponent powerUp = col.gameObject.GetComponent<PowerUpComponent>();
+        if (powerUp != null)
+        {
+            return;
+        }
+
         Combatable entity = col.gameObject.GetComponent<Combatable>();
         if (entity == null)
         {
