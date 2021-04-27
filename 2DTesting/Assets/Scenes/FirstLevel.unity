@@ -1711,8 +1711,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traversableBlocks:
   - {fileID: 5082443287277064153, guid: 1afe65507bcb2544d9dd8277997785ad, type: 3}
-  - {fileID: 4996047633740960218, guid: ad7efdbe3deec8b4b9f40bd46c4b2ba0, type: 3}
-  - {fileID: 2339857315303510608, guid: c6c29871f69e29d49a7b3a79733c2c20, type: 3}
   nontraversibleBlocks:
   - {fileID: 9166291794961157968, guid: b7f9873b6482eb84eb5d216ff31c2d96, type: 3}
   startBlock: {fileID: 1766944596025173606, guid: 7abf73618e1e032449b4d8937cc9de36,
@@ -1721,9 +1719,11 @@ MonoBehaviour:
   borderWall: {fileID: 5717863568459586413, guid: 0efc151dbd9c9b14fb23447884762310,
     type: 3}
   debugFlagTemp: {fileID: 0}
-  verticalBlocks: 2
-  horizontalBlocks: 3
+  verticalBlocks: 5
+  horizontalBlocks: 5
+  nontraversableRatio: 0.4
   blockSizing: 20
+  maxFailedAttempts: 50
 --- !u!114 &1584559583
 MonoBehaviour:
   m_ObjectHideFlags: 0

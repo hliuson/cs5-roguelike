@@ -29,7 +29,13 @@ public class LevelGenerator : MonoBehaviour
     public int horizontalBlocks;
 
     [SerializeField]
+    public float nontraversableRatio;
+
+    [SerializeField]
     public float blockSizing;
+
+    [SerializeField]
+    public float maxFailedAttempts;
 
     private System.Random rand = new System.Random();
 
@@ -113,8 +119,82 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-
+        int blockedTiles = 0;
+        int failedAttempts = 0;
+        while (blockedTiles < horizontalBlocks * verticalBlocks * nontraversableRatio){
+            int x = rand.Next(horizontalBlocks);
+            int y = rand.Next(verticalBlocks);
+            (int, int) coords = (x, y);
+            if (roomTiles[coords] != terrainType.end && roomTiles[coords] != terrainType.start)
+            {
+                roomTiles.Remove((x, y));
+                roomTiles.Add((x, y), terrainType.nontraversable);
+                if (!checkPassability(roomTiles, (0, 0)))
+                {
+                    failedAttempts++;
+                    roomTiles.Remove((x, y));
+                    roomTiles.Add((x, y), terrainType.traversable);
+                }
+                else
+                {
+                    failedAttempts = 0;
+                    blockedTiles++;
+                }
+                if (failedAttempts > maxFailedAttempts)
+                {
+                    break;
+                }
+            }
+        }
+        Debug.Assert(checkPassability(roomTiles, (0,0)) == true);
         return roomTiles;
+    }
+
+    bool checkPassability(Dictionary<(int, int), terrainType> roomTiles, (int, int) start)
+    {
+        bool didAddNewTiles = true;
+        HashSet<(int,int)> accessibleTiles = new HashSet<(int, int)>();
+        HashSet<(int, int)> newTiles = new HashSet<(int, int)>();
+        HashSet<(int, int)> newTilesBuffer = new HashSet<(int, int)>();
+        newTiles.Add(start);
+
+        Debug.Assert(roomTiles[start] == terrainType.start, "Passability check must begin at start tile");
+
+        while (didAddNewTiles)
+        {
+            didAddNewTiles = false;
+            foreach((int x, int y) coords in newTiles)
+            {
+                
+                int x = coords.x;
+                int y = coords.y;
+                (int,int)[] neighbors = { (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)};
+                foreach((int, int) neighbor in neighbors)
+                {
+                    if (!accessibleTiles.Contains(neighbor) && !newTiles.Contains(neighbor))
+                    {
+                        terrainType output;
+                        if (roomTiles.TryGetValue(neighbor, out output))
+                        {
+                            if (output == terrainType.traversable)
+                            {
+                                didAddNewTiles = true;
+                                newTilesBuffer.Add(neighbor);
+                            }
+                            if (output == terrainType.end)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            accessibleTiles.UnionWith(newTiles);
+            newTiles.Clear();
+            newTiles.UnionWith(newTilesBuffer);
+            newTilesBuffer.Clear();
+        }
+        return false;
     }
 
     // Update is called once per frame
