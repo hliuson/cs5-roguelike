@@ -54,11 +54,13 @@ public class LevelGenerator : MonoBehaviour
             }
             if (tt == terrainType.traversable)
             {
-                prefab = traversableBlocks[0];//TODO: make this actually random
+                int index = rand.Next(traversableBlocks.Length);
+                prefab = traversableBlocks[index];
             }
             if (tt == terrainType.nontraversable)
             {
-                prefab = nontraversibleBlocks[0];
+                int index = rand.Next(nontraversibleBlocks.Length);
+                prefab = nontraversibleBlocks[index];
             }
             Vector3 roomLocation = new Vector3(location.x * blockSizing, location.y * blockSizing, 0);
             Instantiate(prefab, roomLocation, Quaternion.identity);

@@ -25,6 +25,9 @@ public class PlayerController : Combatable {
     private float dashMulti = 1.0f;
     public const float dashSpeed = 50.0f;
     public const int dashDuration = 10;
+
+    private float speedMultiplier = 1f;
+
     int dashTime = 0;
     List<PowerUp> powerUpList;
 
@@ -112,7 +115,7 @@ public class PlayerController : Combatable {
             verticalSpeed += verticalPress * acceleration;
         }
 
-         this.body.velocity = new Vector2(horizontalSpeed * dashMulti, verticalSpeed*dashMulti);
+         this.body.velocity = new Vector2(horizontalSpeed * dashMulti * speedMultiplier, verticalSpeed*dashMulti* speedMultiplier);
     }
 
     // Update is called once per frame
@@ -129,7 +132,8 @@ public class PlayerController : Combatable {
             dashTime = dashDuration;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0)) //Allows users to hold mouse down to attack
         {
             this.tryAttack();
         }
@@ -223,7 +227,11 @@ public class PlayerController : Combatable {
         powerUp.onPickup(this);
     }
 
-    //For debugging melee attack
+    public void incrementSpeedMultiplier(float increment)
+    {
+        this.speedMultiplier += increment;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
