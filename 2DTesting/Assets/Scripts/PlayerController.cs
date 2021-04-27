@@ -6,6 +6,8 @@ using System;
 public class PlayerController : Combatable {
 
     public Health healthbar;
+    private GameObject tempOver;
+    private Canvas gameOver;
 
     public Animator animator;
 
@@ -39,6 +41,8 @@ public class PlayerController : Combatable {
     protected override void Start() {
         base.Start();
         healthbar = (Health)FindObjectOfType(typeof(Health));
+        tempOver = GameObject.Find("Game Over Canvas");
+        tempOver.SetActive(false);
         this.powerUpList = new List<PowerUp>();
     }
 
@@ -139,6 +143,11 @@ public class PlayerController : Combatable {
 
         //Potion Stuff
         healthbar.health = (int)health;
+        if(health <= 0)
+        {
+            Time.timeScale = 0.0f;
+            tempOver.SetActive(true);
+        }
     }
 
     public override void onDeath(Combatable source)

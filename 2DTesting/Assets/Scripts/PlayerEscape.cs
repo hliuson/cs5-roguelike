@@ -12,7 +12,7 @@ public class PlayerEscape : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Canvas = GameObject.Find("Canvas");
+        Canvas = GameObject.Find("Pause Canvas");
         Time.timeScale = 1.0f;
         paused = false;
         Canvas.gameObject.SetActive(false);
