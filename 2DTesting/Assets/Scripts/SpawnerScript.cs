@@ -30,6 +30,10 @@ public class SpawnerScript : Combatable
             attack();
         }
     }
+    public override void attack2()
+    {
+        //Implimented because it may be used later
+    }
 
     public override void attack()
     {

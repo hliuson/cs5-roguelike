@@ -32,6 +32,12 @@ public class PlayerController : Combatable {
     [SerializeField]
     public GameObject projectile;
 
+    public float attackTime;
+    public float startTimeAttack;
+    public float attackRange;
+    public float meleeDamage;
+    public float knockback;
+
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
@@ -117,7 +123,7 @@ public class PlayerController : Combatable {
         animator.SetFloat("VSpeed", verticalPress);
 
         this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
-        if (Input.GetMouseButtonDown(1) && dashTime < -20)
+        if (Input.GetKey("space") && dashTime < -20)
         {
             dashTime = dashDuration;
         }
@@ -128,6 +134,13 @@ public class PlayerController : Combatable {
             this.tryAttack();
         }
 
+
+        //Melee attack stuff
+        if (Input.GetMouseButtonDown(1))
+        {
+            this.tryAttack2();
+        }
+
         //Potion Stuff
         healthbar.health = (int)health;
     }
@@ -135,6 +148,22 @@ public class PlayerController : Combatable {
     public override void onDeath(Combatable source)
     {
         Debug.Log("Died");
+    }
+
+    public override void attack2()
+    {
+        Collider2D[] damage = Physics2D.OverlapCircleAll(body.transform.position, attackRange);
+
+        for (int i = 0; i < damage.Length; i++)
+        {
+            Combatable entity = damage[i].gameObject.GetComponent<Combatable>();
+            if (entity != null && entity.getTeam() != this.team)
+            {
+                print("Attacked");
+                Vector2 knockbackDirection = entity.transform.position - transform.position; ;
+                entity.takeDamage(meleeDamage, knockback, knockbackDirection, this);
+            }
+        }
     }
 
     public override void attack()
@@ -188,8 +217,15 @@ public class PlayerController : Combatable {
         this.powerUpList.Add(powerUp);
         powerUp.onPickup(this);
     }
+
     public void incrementSpeedMultiplier(float increment)
     {
         this.speedMultiplier += increment;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

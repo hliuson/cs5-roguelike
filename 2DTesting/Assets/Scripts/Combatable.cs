@@ -16,6 +16,9 @@ public abstract class Combatable : MonoBehaviour
     public Team team;
     public abstract void attack();
 
+    public abstract void attack2();
+    
+
     public Rigidbody2D body;
     private Stopwatch attackStopwatch;
 
@@ -64,6 +67,21 @@ public abstract class Combatable : MonoBehaviour
             attackStopwatch.Reset();
             attackStopwatch.Start();
             attack();
+        }
+    }
+
+    //Only for player right now
+    protected void tryAttack2()
+    {
+        if (attackStopwatch.ElapsedMilliseconds < attackCooldownMs)
+        {
+            return;
+        }
+        else
+        {
+            attackStopwatch.Reset();
+            attackStopwatch.Start();
+            attack2();
         }
     }
 }
