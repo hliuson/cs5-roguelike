@@ -11,6 +11,7 @@ public class NavGrid : MonoBehaviour
 
 	public LayerMask unwalkableMask;
 	public Vector2 gridWorldSize;
+	public Vector2 offSet;
 	public float nodeRadius;
 	public float seekerRadius;
 
@@ -60,7 +61,7 @@ public class NavGrid : MonoBehaviour
 	void createGrid()
 	{
 		grid = new Node[gridSizeX, gridSizeY];
-		Vector2 worldBottomLeft = (Vector2)transform.position - Vector2.right * gridWorldSize.x / 2 - Vector2.up * gridWorldSize.y / 2;
+		Vector2 worldBottomLeft = (Vector2)transform.position + offSet;
 
 		for (int x = 0; x < gridSizeX; x++)
 		{
