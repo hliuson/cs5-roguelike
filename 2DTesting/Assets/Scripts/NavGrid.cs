@@ -36,6 +36,7 @@ public class NavGrid : MonoBehaviour
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
 		nodeBuffer = seekerRadius / nodeDiameter;
+		//transform.position = transform.position + offSet;
 		createGrid();
 	}
 	/*
@@ -61,7 +62,7 @@ public class NavGrid : MonoBehaviour
 	void createGrid()
 	{
 		grid = new Node[gridSizeX, gridSizeY];
-		Vector2 worldBottomLeft = (Vector2)transform.position + offSet;
+		Vector2 worldBottomLeft = ((Vector2)transform.position - Vector2.right * gridWorldSize.x / 2 - Vector2.up * gridWorldSize.y / 2); 
 
 		for (int x = 0; x < gridSizeX; x++)
 		{
@@ -178,6 +179,7 @@ public class NavGrid : MonoBehaviour
 
 		int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
 		int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+		//print("X: " + x.ToString() + " Y: " + y.ToString());
 		return grid[x, y];
 	}
 
@@ -195,46 +197,46 @@ public class NavGrid : MonoBehaviour
 		}
 		return null;
 	}
-	Node findWalkableInRadius(int centreX, int centreY, int radius)
+	Node findWalkableInRadius(int  centerX, int  centerY, int radius)
 	{
 
 		for (int i = -radius; i <= radius; i++)
 		{
-			int verticalSearchX = i + centreX;
-			int horizontalSearchY = i + centreY;
+			int verticalSearchX = i +  centerX;
+			int horizontalSearchY = i +  centerY;
 
 			// top
-			if (inBounds(verticalSearchX, centreY + radius))
+			if (inBounds(verticalSearchX,  centerY + radius))
 			{
-				if (grid[verticalSearchX, centreY + radius].walkable)
+				if (grid[verticalSearchX,  centerY + radius].walkable)
 				{
-					return grid[verticalSearchX, centreY + radius];
+					return grid[verticalSearchX,  centerY + radius];
 				}
 			}
 
 			// bottom
-			if (inBounds(verticalSearchX, centreY - radius))
+			if (inBounds(verticalSearchX,  centerY - radius))
 			{
-				if (grid[verticalSearchX, centreY - radius].walkable)
+				if (grid[verticalSearchX,  centerY - radius].walkable)
 				{
-					return grid[verticalSearchX, centreY - radius];
+					return grid[verticalSearchX,  centerY - radius];
 				}
 			}
 			// right
-			if (inBounds(centreY + radius, horizontalSearchY))
+			if (inBounds( centerY + radius, horizontalSearchY))
 			{
-				if (grid[centreX + radius, horizontalSearchY].walkable)
+				if (grid[ centerX + radius, horizontalSearchY].walkable)
 				{
-					return grid[centreX + radius, horizontalSearchY];
+					return grid[ centerX + radius, horizontalSearchY];
 				}
 			}
 
 			// left
-			if (inBounds(centreY - radius, horizontalSearchY))
+			if (inBounds( centerY - radius, horizontalSearchY))
 			{
-				if (grid[centreX - radius, horizontalSearchY].walkable)
+				if (grid[ centerX - radius, horizontalSearchY].walkable)
 				{
-					return grid[centreX - radius, horizontalSearchY];
+					return grid[ centerX - radius, horizontalSearchY];
 				}
 			}
 
@@ -265,5 +267,4 @@ public class NavGrid : MonoBehaviour
 			}
 		}
 	}
-
 }
