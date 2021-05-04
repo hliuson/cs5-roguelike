@@ -7,6 +7,6 @@ using UnityEngine;
 public static class SceneChangeData
 {
     public static List<PowerUp> playerPowerUps = null;
-    public static int maxHp = -1;
-    public static int hp = -1;
+    public static float maxHp = -1;
+    public static float hp = -1;
 }

@@ -17,7 +17,6 @@ public abstract class PowerUpComponent : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-
         PlayerController player = col.gameObject.GetComponent<PlayerController>();
         if (player == null)
         {

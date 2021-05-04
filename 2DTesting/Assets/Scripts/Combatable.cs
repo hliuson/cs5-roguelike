@@ -31,6 +31,10 @@ public abstract class Combatable : MonoBehaviour
         this.attackStopwatch.Start();
         this.body = GetComponent<Rigidbody2D>();
         this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        if(this.team == Team.Enemy)
+        {
+            EnemyCounter.increment();
+        }
     }
 
     public void takeDamage(float damage, float knockbackMagnitude, Vector2 knockbackDirection, Combatable source)
@@ -48,6 +52,10 @@ public abstract class Combatable : MonoBehaviour
     public abstract void onDeath(Combatable source);
     public void die()
     {
+        if(this.team == Team.Enemy)
+        {
+            EnemyCounter.decrement();
+        }
         Destroy(this.gameObject);
     }
 
@@ -73,7 +81,7 @@ public abstract class Combatable : MonoBehaviour
     //Only for player right now
     protected void tryAttack2()
     {
-        if (attackStopwatch.ElapsedMilliseconds < attackCooldownMs)
+        if (attackStopwatch.ElapsedMilliseconds < attackCooldown())
         {
             return;
         }
@@ -83,6 +91,11 @@ public abstract class Combatable : MonoBehaviour
             attackStopwatch.Start();
             attack2();
         }
+    }
+    
+    public virtual float attackCooldown()
+    {
+        return attackCooldownMs;
     }
 }
 

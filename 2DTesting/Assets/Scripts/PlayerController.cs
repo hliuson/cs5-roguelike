@@ -27,6 +27,7 @@ public class PlayerController : Combatable {
     public const int dashDuration = 10;
 
     private float speedMultiplier = 1f;
+    private float cooldownMultiplier = 1f;
 
     int dashTime = 0;
     List<PowerUp> powerUpList;
@@ -206,6 +207,8 @@ public class PlayerController : Combatable {
     public void backupData()
     {
         SceneChangeData.playerPowerUps = this.powerUpList;
+        SceneChangeData.maxHp = this.maxHealth;
+        SceneChangeData.hp = this.health;
     }
 
     public void loadData()
@@ -219,6 +222,8 @@ public class PlayerController : Combatable {
         {
             p.onPickup(this);
         }
+        this.maxHealth = SceneChangeData.maxHp;
+        this.health = SceneChangeData.hp;
     }
 
     public void removePowerUp(PowerUp powerUp)
@@ -235,6 +240,16 @@ public class PlayerController : Combatable {
     public void incrementSpeedMultiplier(float increment)
     {
         this.speedMultiplier += increment;
+    }
+
+    public override float attackCooldown()
+    {
+        return this.attackCooldownMs * this.cooldownMultiplier;
+    }
+
+    public void multiplyCooldownMultiplier(float multiplier)
+    {
+        this.cooldownMultiplier *= multiplier;
     }
 
     private void OnDrawGizmos()
