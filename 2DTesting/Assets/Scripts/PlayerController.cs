@@ -47,6 +47,7 @@ public class PlayerController : Combatable {
         tempOver = GameObject.Find("Game Over Canvas");
         tempOver.SetActive(false);
         this.powerUpList = new List<PowerUp>();
+        this.loadData();
     }
 
     private void FixedUpdate() {
@@ -209,6 +210,10 @@ public class PlayerController : Combatable {
 
     public void loadData()
     {
+        if(SceneChangeData.playerPowerUps == null)
+        {
+            return;
+        }
         this.powerUpList = SceneChangeData.playerPowerUps;
         foreach (PowerUp p in this.powerUpList)
         {

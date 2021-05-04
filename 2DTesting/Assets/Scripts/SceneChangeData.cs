@@ -4,9 +4,9 @@ using UnityEngine;
 
 
 //Stores scene change data in static variables so that they remain constant across classes
-public class SceneChangeData
+public static class SceneChangeData
 {
-    public static List<PowerUp> playerPowerUps;
-    public static int maxHp;
-    public static int hp;
+    public static List<PowerUp> playerPowerUps = null;
+    public static int maxHp = -1;
+    public static int hp = -1;
 }
