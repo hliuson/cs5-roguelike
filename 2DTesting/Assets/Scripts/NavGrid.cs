@@ -27,7 +27,7 @@ public class NavGrid : MonoBehaviour
 		NoDuplicate,
 		Duplicate
 	}
-
+	
 	//Here to be called after the level is generated
 	public void wakeUp()
     {
@@ -61,14 +61,16 @@ public class NavGrid : MonoBehaviour
 
 	void createGrid()
 	{
+		
 		grid = new Node[gridSizeX, gridSizeY];
-		Vector2 worldBottomLeft = ((Vector2)transform.position - Vector2.right * gridWorldSize.x / 2 - Vector2.up * gridWorldSize.y / 2); 
-
+		//transform.position = (Vector2)transform.position + offSet;
+		Vector2 worldBottomLeft = ((Vector2)transform.position + offSet);
+		print(worldBottomLeft);
 		for (int x = 0; x < gridSizeX; x++)
 		{
 			for (int y = 0; y < gridSizeY; y++)
 			{
-				Vector2 worldPoint = worldBottomLeft + Vector2.right * (x * nodeDiameter + nodeRadius) + Vector2.up * (y * nodeDiameter + nodeRadius);
+				Vector2 worldPoint = worldBottomLeft + Vector2.right * (x * nodeDiameter + nodeRadius) + Vector2.up * (y * nodeDiameter + nodeRadius); //+ new Vector2((gridWorldSize.x+offSet.x)/2, (gridWorldSize.y + offSet.y) / 2) - gridWorldSize/2;
 				bool walkable = (Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask) == null); // if no collider2D is returned by overlap circle, then this node is walkable
 
 				grid[x, y] = new Node(walkable, worldPoint, x, y);
@@ -76,6 +78,8 @@ public class NavGrid : MonoBehaviour
 			}
 		}
 		createBuffer((int)Math.Round(nodeBuffer / 2));
+		print(nodeFromWorldPoint(new Vector2(0.0f, 0.0f)).worldPosition);
+		print(nodeFromWorldPoint(new Vector2(10.0f, 10.0f)).worldPosition);
 	}
 
 	//Actually makes the buffer
@@ -172,8 +176,8 @@ public class NavGrid : MonoBehaviour
 
 	public Node nodeFromWorldPoint(Vector2 worldPosition)
 	{
-		float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
-		float percentY = (worldPosition.y + gridWorldSize.y / 2) / gridWorldSize.y;
+		float percentX = (worldPosition.x + gridWorldSize.x / 4.0f + 4.0f/3 * offSet.x) / gridWorldSize.x;
+		float percentY = (worldPosition.y + gridWorldSize.y / 4.0f + 4.0f/3 * offSet.y) / gridWorldSize.y;
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
 

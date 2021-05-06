@@ -2119,7 +2119,7 @@ MonoBehaviour:
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 256
-  gridWorldSize: {x: 204, y: 204}
+  gridWorldSize: {x: 102, y: 102}
   offSet: {x: -11, y: -11}
   nodeRadius: 0.2
   seekerRadius: 0.5
