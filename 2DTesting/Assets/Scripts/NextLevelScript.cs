@@ -22,6 +22,10 @@ public class NextLevelScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (EnemyCounter.areEnemiesAlive())
+        {
+            return;
+        }
         PlayerController player = col.gameObject.GetComponent<PlayerController>();
         if (player == null)
         {
