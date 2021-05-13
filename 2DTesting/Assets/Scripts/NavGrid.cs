@@ -36,7 +36,6 @@ public class NavGrid : MonoBehaviour
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
 		nodeBuffer = seekerRadius / nodeDiameter;
-		//transform.position = transform.position + offSet;
 		createGrid();
 	}
 	/*
@@ -50,7 +49,6 @@ public class NavGrid : MonoBehaviour
 		createGrid();
 	}
 	*/
-	//This is kinda cool that you can do this
 	public int maxSize
 	{
 		get
@@ -63,9 +61,7 @@ public class NavGrid : MonoBehaviour
 	{
 		
 		grid = new Node[gridSizeX, gridSizeY];
-		//transform.position = (Vector2)transform.position + offSet;
 		Vector2 worldBottomLeft = ((Vector2)transform.position + offSet);
-		print(worldBottomLeft);
 		for (int x = 0; x < gridSizeX; x++)
 		{
 			for (int y = 0; y < gridSizeY; y++)
@@ -78,8 +74,6 @@ public class NavGrid : MonoBehaviour
 			}
 		}
 		createBuffer((int)Math.Round(nodeBuffer / 2));
-		print(nodeFromWorldPoint(new Vector2(0.0f, 0.0f)).worldPosition);
-		print(nodeFromWorldPoint(new Vector2(10.0f, 10.0f)).worldPosition);
 	}
 
 	//Actually makes the buffer
