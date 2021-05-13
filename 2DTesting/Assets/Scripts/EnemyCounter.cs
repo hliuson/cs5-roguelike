@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public static class EnemyCounter
 {
     static int enemies = 0;
-    public static UnityEvent enemiesDead = new UnityEvent();
+    public delegate void enemiesDied();
+    public static event enemiesDied onEnemiesDied;
 
     public static void newLevel()
     {
@@ -23,7 +24,7 @@ public static class EnemyCounter
         enemies += -1;
         if(enemies == 0)
         {
-            enemiesDead.Invoke();
+            onEnemiesDied();
         }
     }
     public static bool areEnemiesAlive()
