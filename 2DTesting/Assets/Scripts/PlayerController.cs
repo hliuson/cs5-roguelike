@@ -145,6 +145,11 @@ public class PlayerController : Combatable {
         if (Input.GetMouseButtonDown(1))
         {
             this.tryAttack2();
+            animator.SetBool("MeleeAttack", true);
+        }
+        else
+        {
+            animator.SetBool("MeleeAttack", false);
         }
 
         //Potion Stuff
@@ -193,7 +198,7 @@ public class PlayerController : Combatable {
         Vector2 vel = new Vector2(x, y).normalized;
 
         Projectile proj = projectileInst.GetComponent<Projectile>();
-        
+
 
         projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
         proj.source = this;
