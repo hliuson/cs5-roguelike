@@ -99,7 +99,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 25
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -169,5 +169,6 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   speed: 10
   stoppingDistance: 8
+  justHit: 0
   projectile: {fileID: 771333620578681815, guid: a0abc624bd581c0449a651f5c8a6aaf9,
     type: 3}

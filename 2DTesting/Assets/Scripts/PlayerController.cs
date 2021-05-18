@@ -21,10 +21,10 @@ public class PlayerController : Combatable {
     public const float regSpeed = 20.0f;
     private const float diagSpeed = diagonalLimit * regSpeed;
 
-    public const float dashMax = 5.0f;
+    public const float dashMax = 3.0f;
     private float dashMulti = 1.0f;
-    public const float dashSpeed = 50.0f;
-    public const int dashDuration = 10;
+    public const float dashSpeed = 30.0f;
+    public const int dashDuration = 20;
 
     private float speedMultiplier = 1f;
     private float cooldownMultiplier = 1f;
@@ -129,7 +129,7 @@ public class PlayerController : Combatable {
         animator.SetFloat("VSpeed", verticalPress);
 
         this.body.constraints = RigidbodyConstraints2D.FreezeRotation;
-        if (Input.GetKey("space") && dashTime < -20)
+        if (Input.GetKey("space") && dashTime < -50)
         {
             dashTime = dashDuration;
         }
@@ -145,6 +145,11 @@ public class PlayerController : Combatable {
         if (Input.GetMouseButtonDown(1))
         {
             this.tryAttack2();
+            animator.SetBool("MeleeAttack", true);
+        }
+        else
+        {
+            animator.SetBool("MeleeAttack", false);
         }
 
         //Potion Stuff
@@ -193,7 +198,7 @@ public class PlayerController : Combatable {
         Vector2 vel = new Vector2(x, y).normalized;
 
         Projectile proj = projectileInst.GetComponent<Projectile>();
-        
+
 
         projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
         proj.source = this;

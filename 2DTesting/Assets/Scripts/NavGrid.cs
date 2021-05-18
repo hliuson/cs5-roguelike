@@ -36,7 +36,6 @@ public class NavGrid : MonoBehaviour
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
 		nodeBuffer = seekerRadius / nodeDiameter;
-		//transform.position = transform.position + offSet;
 		createGrid();
 	}
 	/*
@@ -50,7 +49,6 @@ public class NavGrid : MonoBehaviour
 		createGrid();
 	}
 	*/
-	//This is kinda cool that you can do this
 	public int maxSize
 	{
 		get
@@ -63,7 +61,6 @@ public class NavGrid : MonoBehaviour
 	{
 		
 		grid = new Node[gridSizeX, gridSizeY];
-		//transform.position = (Vector2)transform.position + offSet;
 		Vector2 worldBottomLeft = ((Vector2)transform.position + offSet);
 		print(worldBottomLeft);
 		for (int x = 0; x < gridSizeX; x++)
@@ -78,8 +75,8 @@ public class NavGrid : MonoBehaviour
 			}
 		}
 		createBuffer((int)Math.Round(nodeBuffer / 2));
-		print(nodeFromWorldPoint(new Vector2(0.0f, 0.0f)).worldPosition);
-		print(nodeFromWorldPoint(new Vector2(10.0f, 10.0f)).worldPosition);
+		print(nodeFromWorldPoint(new Vector2(0,0)).worldPosition);
+		print(nodeFromWorldPoint(new Vector2(10, 10)).worldPosition);
 	}
 
 	//Actually makes the buffer
@@ -176,8 +173,8 @@ public class NavGrid : MonoBehaviour
 
 	public Node nodeFromWorldPoint(Vector2 worldPosition)
 	{
-		float percentX = (worldPosition.x + gridWorldSize.x / 4.0f + 4.0f/3 * offSet.x) / gridWorldSize.x;
-		float percentY = (worldPosition.y + gridWorldSize.y / 4.0f + 4.0f/3 * offSet.y) / gridWorldSize.y;
+		float percentX = (worldPosition.x + gridWorldSize.x / 4.0f + 4.0f/3*offSet.x) / gridWorldSize.x;
+		float percentY = (worldPosition.y + gridWorldSize.y / 4.0f + 4.0f/3*offSet.y) / gridWorldSize.y;
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
 
