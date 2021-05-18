@@ -10,6 +10,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     public GameObject[] nontraversibleBlocks;
 
+    public ArrayList enemiesList;
+
     [SerializeField]
     public GameObject startBlock;
 
@@ -37,12 +39,28 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     public float maxFailedAttempts;
 
+    [SerializeField]
+    public float difficulty;
+
     private System.Random rand = new System.Random();
 
     // Start is called before the first frame update
     void Start()
     {
+        //EnemyCounter.clear();
+        GameObject[] enemyGameObjects = Resources.LoadAll<GameObject>("Prefabs/Combatables");
+        enemiesList = new ArrayList();
+        for(int i = 0; i < enemyGameObjects.Length; i++)
+        {
+            enemiesList.Add(enemyGameObjects[i].GetComponent<Enemy>());
+        }
         Dictionary<(int, int), terrainType> roomPositions = getRoomTemplate();
+        generateRoom(roomPositions);
+        GetComponent<NavGrid>().wakeUp();
+    }
+
+    void generateRoom(Dictionary<(int, int), terrainType> roomPositions)
+    {
         foreach (KeyValuePair<(int, int), terrainType> kvp in roomPositions)
         {
             (int x, int y) location = kvp.Key;
@@ -94,9 +112,51 @@ public class LevelGenerator : MonoBehaviour
                 Instantiate(borderWall, roomLocation + new Vector3(blockSizing / 2, 0, 0), Quaternion.Euler(0, 0, 270));
             }
         }
-        GetComponent<NavGrid>().wakeUp();
     }
 
+    void spawnEnemies(Dictionary<(int, int), terrainType> roomPositions, int levelCount)
+    {
+        //this formula might be tweaked but tbh balance isn't a huge concern.
+        float enemyPoints = levelCount * difficulty;
+        while (true)
+        {
+            ArrayList toRemove = new ArrayList();
+            foreach (Enemy e in enemiesList)
+            {
+                if (enemyPoints < e.difficulty())
+                {
+                    toRemove.Add(e);
+                }
+            }
+            foreach (Enemy e in toRemove)
+            {
+                enemiesList.Remove(e);
+            }
+            if(enemiesList.Length == 0)
+            {
+                return;
+            }
+            int index = rand.Next(enemiesList.Length);
+            GameObject toSpawn = enemiesList[index].gameObject;
+
+            enemyPoints -= toSpawn.GetComponent<Enemy>().difficulty();
+
+            ArrayList passableTiles = new ArrayList();
+            foreach (KeyValuePair<(int, int), terrainType> kvp in roomPositions)
+            {
+                (int x, int y) location = kvp.Key;
+                terrainType tt = kvp.Value;
+                if (tt == terrainType.traversable)
+                {
+                    passableTiles.Add(location);
+                }
+            }
+            (int, int) tile = passableTiles[rand.Next(passableTiles.Length)];
+            Vector3 roomLocation = new Vector3(location.x * blockSizing, location.y * blockSizing, 0);
+            Instantiate(toSpawn, roomLocation, Quaternion.Euler(0, 0, 0));
+
+        }
+    }
     //Maybe i should just make this a class instead of a tuple lol
     Dictionary<(int, int), terrainType> getRoomTemplate()
     {

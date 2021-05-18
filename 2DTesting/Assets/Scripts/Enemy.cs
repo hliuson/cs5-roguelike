@@ -55,6 +55,11 @@ public abstract class Enemy : Combatable
         return closest;
     }
 
+    protected void difficulty()
+    {
+        return 1;
+    }
+
     private void getAllCombatables()
     {
         //Get all objects in the scene of type combatable
