@@ -10,9 +10,11 @@ public abstract class Enemy : Combatable
     public Combatable currentTarget;
     public float speed;
     public int stoppingDistance; //How far away you want the enemy to stop from the player, to attack or other things
+    public bool justHit;
 
     protected override void Start()
     {
+        justHit = false;
         float nodeRadius = ((NavGrid)FindObjectOfType(typeof(NavGrid))).nodeRadius;
         stoppingDistance = (int)(stoppingDistance / nodeRadius);
         base.Start();
@@ -54,6 +56,7 @@ public abstract class Enemy : Combatable
         }
         return closest;
     }
+
 
     private void getAllCombatables()
     {
