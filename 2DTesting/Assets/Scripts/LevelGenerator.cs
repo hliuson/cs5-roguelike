@@ -56,6 +56,7 @@ public class LevelGenerator : MonoBehaviour
         }
         Dictionary<(int, int), terrainType> roomPositions = getRoomTemplate();
         generateRoom(roomPositions);
+        spawnEnemies(roomPositions, 1);
         GetComponent<NavGrid>().wakeUp();
     }
 
@@ -123,6 +124,7 @@ public class LevelGenerator : MonoBehaviour
             List<Enemy> toRemove = new List<Enemy>();
             foreach (Enemy e in enemiesList)
             {
+                Debug.Log(e);
                 if (enemyPoints < e.difficulty())
                 {
                     toRemove.Add(e);
@@ -154,7 +156,6 @@ public class LevelGenerator : MonoBehaviour
             (int x, int y) tile = passableTiles[rand.Next(passableTiles.Count)];
             Vector3 roomLocation = new Vector3(tile.x * blockSizing, tile.y * blockSizing, 0);
             Instantiate(toSpawn, roomLocation, Quaternion.Euler(0, 0, 0));
-
         }
     }
     //Maybe i should just make this a class instead of a tuple lol
