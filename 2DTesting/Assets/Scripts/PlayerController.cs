@@ -152,18 +152,18 @@ public class PlayerController : Combatable {
             animator.SetBool("MeleeAttack", false);
         }
 
-        //Potion Stuff
         healthbar.health = (int)health;
-        if(health <= 0)
-        {
-            Time.timeScale = 0.0f;
-            tempOver.SetActive(true);
-        }
     }
 
     public override void onDeath(Combatable source)
     {
         Debug.Log("Died");
+        SceneChangeData.playerPowerUps = null;
+        SceneChangeData.maxHp = -1;
+        SceneChangeData.hp = -1;
+        SceneChangeData.level = 0;
+        Time.timeScale = 0.0f;
+        tempOver.SetActive(true);
     }
 
     public override void attack2()
@@ -214,6 +214,8 @@ public class PlayerController : Combatable {
         SceneChangeData.playerPowerUps = this.powerUpList;
         SceneChangeData.maxHp = this.maxHealth;
         SceneChangeData.hp = this.health;
+        SceneChangeData.level++;
+        print(SceneChangeData.level);
     }
 
     public void loadData()
