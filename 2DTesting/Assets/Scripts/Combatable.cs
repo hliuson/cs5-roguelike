@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 //Creates a standard framework for enemies and players.
 public abstract class Combatable : MonoBehaviour
@@ -25,6 +26,10 @@ public abstract class Combatable : MonoBehaviour
     [SerializeField]
     public float attackCooldownMs;
 
+    public int flashWhiteDurationMs = 50;
+
+    public float flashAmount = 0.9f;
+
     protected virtual void Start()
     {
         this.attackStopwatch = new Stopwatch();
@@ -42,6 +47,7 @@ public abstract class Combatable : MonoBehaviour
         this.health = this.health - damage;
         Vector2 knockback = knockbackDirection.normalized*knockbackMagnitude;
         this.body.AddForce(knockback, ForceMode2D.Impulse);
+        this.flashWhite();
         if (this.health <= 0)
         {
             onDeath(source);
@@ -96,6 +102,18 @@ public abstract class Combatable : MonoBehaviour
     public virtual float attackCooldown()
     {
         return attackCooldownMs;
+    }
+
+    private async void flashWhite()
+    {
+        var spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.material.SetFloat("_FlashAmount", this.flashAmount);
+        await Task.Delay(this.flashWhiteDurationMs);
+        if(spriteRenderer == null)
+        {
+            return;
+        }
+        spriteRenderer.material.SetFloat("_FlashAmount", 0);
     }
 }
 
