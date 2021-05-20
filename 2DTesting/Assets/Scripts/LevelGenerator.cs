@@ -10,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField]
     public GameObject[] nontraversibleBlocks;
 
-    public ArrayList enemiesList;
+    public List<Enemy> enemiesList;
 
     [SerializeField]
     public GameObject startBlock;
@@ -49,7 +49,7 @@ public class LevelGenerator : MonoBehaviour
     {
         //EnemyCounter.clear();
         GameObject[] enemyGameObjects = Resources.LoadAll<GameObject>("Prefabs/Combatables");
-        enemiesList = new ArrayList();
+        enemiesList = new List<Enemy>();
         for(int i = 0; i < enemyGameObjects.Length; i++)
         {
             enemiesList.Add(enemyGameObjects[i].GetComponent<Enemy>());
@@ -120,7 +120,7 @@ public class LevelGenerator : MonoBehaviour
         float enemyPoints = levelCount * difficulty;
         while (true)
         {
-            ArrayList toRemove = new ArrayList();
+            List<Enemy> toRemove = new List<Enemy>();
             foreach (Enemy e in enemiesList)
             {
                 if (enemyPoints < e.difficulty())
@@ -132,16 +132,16 @@ public class LevelGenerator : MonoBehaviour
             {
                 enemiesList.Remove(e);
             }
-            if(enemiesList.Length == 0)
+            if(enemiesList.Count == 0)
             {
                 return;
             }
-            int index = rand.Next(enemiesList.Length);
+            int index = rand.Next(enemiesList.Count);
             GameObject toSpawn = enemiesList[index].gameObject;
 
             enemyPoints -= toSpawn.GetComponent<Enemy>().difficulty();
 
-            ArrayList passableTiles = new ArrayList();
+            List<(int, int)> passableTiles = new List<(int, int)>();
             foreach (KeyValuePair<(int, int), terrainType> kvp in roomPositions)
             {
                 (int x, int y) location = kvp.Key;
@@ -151,8 +151,8 @@ public class LevelGenerator : MonoBehaviour
                     passableTiles.Add(location);
                 }
             }
-            (int, int) tile = passableTiles[rand.Next(passableTiles.Length)];
-            Vector3 roomLocation = new Vector3(location.x * blockSizing, location.y * blockSizing, 0);
+            (int x, int y) tile = passableTiles[rand.Next(passableTiles.Count)];
+            Vector3 roomLocation = new Vector3(tile.x * blockSizing, tile.y * blockSizing, 0);
             Instantiate(toSpawn, roomLocation, Quaternion.Euler(0, 0, 0));
 
         }

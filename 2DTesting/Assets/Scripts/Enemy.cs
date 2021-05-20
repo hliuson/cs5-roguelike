@@ -57,7 +57,7 @@ public abstract class Enemy : Combatable
         return closest;
     }
 
-    protected void difficulty()
+    public int difficulty()
     {
         return 1;
     }
