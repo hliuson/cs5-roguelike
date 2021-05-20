@@ -119,9 +119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  damage: 100
+  damage: 1
   knockback: 5
-  speed: 100
+  speed: 40
   team: 0
   source: {fileID: 0}
 --- !u!70 &4091950143286168313
