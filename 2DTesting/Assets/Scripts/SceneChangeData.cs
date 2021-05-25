@@ -9,5 +9,13 @@ public static class SceneChangeData
     public static List<PowerUp> playerPowerUps = null;
     public static float maxHp = -1;
     public static float hp = -1;
-    public static float level = 0;
+    public static int level = 1;
+
+    public static void reset()
+    {
+        playerPowerUps = null;
+        maxHp = -1;
+        hp = -1;
+        level = 1;
+    }
 }
