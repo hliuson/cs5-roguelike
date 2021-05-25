@@ -47,7 +47,7 @@ public class LevelGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //EnemyCounter.clear();
+        EnemyCounter.clear();
         GameObject[] enemyGameObjects = Resources.LoadAll<GameObject>("Prefabs/Combatables");
         enemiesList = new List<Enemy>();
         for(int i = 0; i < enemyGameObjects.Length; i++)
@@ -56,7 +56,7 @@ public class LevelGenerator : MonoBehaviour
         }
         Dictionary<(int, int), terrainType> roomPositions = getRoomTemplate();
         generateRoom(roomPositions);
-        spawnEnemies(roomPositions, 1);
+        spawnEnemies(roomPositions, SceneChangeData.level);
         GetComponent<NavGrid>().wakeUp();
     }
 

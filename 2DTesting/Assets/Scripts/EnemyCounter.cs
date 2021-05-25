@@ -27,13 +27,11 @@ public static class EnemyCounter
         {
             onEnemiesDied();
         }
-        Debug.Log(enemies);
     }
 
     public static void clear()
     {
         enemies = 0;
-        Debug.Log(enemies);
     }
     public static bool areEnemiesAlive()
     {

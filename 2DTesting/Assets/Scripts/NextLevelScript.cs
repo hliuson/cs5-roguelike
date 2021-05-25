@@ -32,6 +32,7 @@ public class NextLevelScript : MonoBehaviour
             return;
         }
         player.backupData();
+        SceneChangeData.level++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 }

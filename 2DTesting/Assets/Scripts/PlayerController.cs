@@ -158,10 +158,7 @@ public class PlayerController : Combatable {
     public override void onDeath(Combatable source)
     {
         Debug.Log("Died");
-        SceneChangeData.playerPowerUps = null;
-        SceneChangeData.maxHp = -1;
-        SceneChangeData.hp = -1;
-        SceneChangeData.level = 0;
+        SceneChangeData.reset();
         Time.timeScale = 0.0f;
         tempOver.SetActive(true);
     }
@@ -214,8 +211,6 @@ public class PlayerController : Combatable {
         SceneChangeData.playerPowerUps = this.powerUpList;
         SceneChangeData.maxHp = this.maxHealth;
         SceneChangeData.hp = this.health;
-        SceneChangeData.level++;
-        print(SceneChangeData.level);
     }
 
     public void loadData()
