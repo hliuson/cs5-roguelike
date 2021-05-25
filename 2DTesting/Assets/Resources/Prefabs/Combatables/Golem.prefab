@@ -150,8 +150,10 @@ MonoBehaviour:
   team: 1
   body: {fileID: 0}
   attackCooldownMs: 100
+  flashWhiteDurationMs: 50
+  flashAmount: 0.9
   targets: []
-  aggressionRadius: 10
+  aggressionRadius: 30
   currentTarget: {fileID: 0}
   speed: 15
   stoppingDistance: 4
