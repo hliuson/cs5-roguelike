@@ -2028,7 +2028,7 @@ MonoBehaviour:
   nontraversableRatio: 0.1
   blockSizing: 20
   maxFailedAttempts: 50
-  difficulty: 10
+  difficulty: 1
 --- !u!114 &1584559583
 MonoBehaviour:
   m_ObjectHideFlags: 0
