@@ -11,6 +11,9 @@ public class Enemy3AI : Enemy
     private Tracker tracker;
     private int internalCount;
 
+    [SerializeField]
+    private int difficultyPts = 4;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -83,5 +86,10 @@ public class Enemy3AI : Enemy
     public override void onDeath(Combatable source)
     {
         die();
+    }
+
+    public override int difficulty()
+    {
+        return this.difficultyPts;
     }
 }

@@ -8,6 +8,7 @@ public class Enemy1AI : Enemy
     private Tracker tracker;
     private int internalCount;
     private float dashTime = 0.2f;
+    private int difficultyPts = 2;
 
     [SerializeField]
     private int dashDamage;
@@ -101,5 +102,10 @@ public class Enemy1AI : Enemy
     public override void onDeath(Combatable source)
     {
         die();
+    }
+
+    public override int difficulty()
+    {
+        return this.difficultyPts;
     }
 }

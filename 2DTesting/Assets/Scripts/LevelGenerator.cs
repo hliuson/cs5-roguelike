@@ -124,7 +124,6 @@ public class LevelGenerator : MonoBehaviour
             List<Enemy> toRemove = new List<Enemy>();
             foreach (Enemy e in enemiesList)
             {
-                Debug.Log(e);
                 if (enemyPoints < e.difficulty())
                 {
                     toRemove.Add(e);
@@ -142,6 +141,9 @@ public class LevelGenerator : MonoBehaviour
             GameObject toSpawn = enemiesList[index].gameObject;
 
             enemyPoints -= toSpawn.GetComponent<Enemy>().difficulty();
+
+
+
 
             List<(int, int)> passableTiles = new List<(int, int)>();
             foreach (KeyValuePair<(int, int), terrainType> kvp in roomPositions)
@@ -221,6 +223,16 @@ public class LevelGenerator : MonoBehaviour
 
         Debug.Assert(roomTiles[start] == terrainType.start, "Passability check must begin at start tile");
 
+        int numTraversibleTiles = 0;
+        foreach(KeyValuePair<(int, int), terrainType> kvp in roomTiles)
+        {
+            terrainType t = kvp.Value;
+            if(t != terrainType.nontraversable)
+            {
+                numTraversibleTiles++;
+            }
+        }
+
         while (didAddNewTiles)
         {
             didAddNewTiles = false;
@@ -237,14 +249,10 @@ public class LevelGenerator : MonoBehaviour
                         terrainType output;
                         if (roomTiles.TryGetValue(neighbor, out output))
                         {
-                            if (output == terrainType.traversable)
+                            if (output != terrainType.nontraversable)
                             {
                                 didAddNewTiles = true;
                                 newTilesBuffer.Add(neighbor);
-                            }
-                            if (output == terrainType.end)
-                            {
-                                return true;
                             }
                         }
                     }
@@ -255,7 +263,9 @@ public class LevelGenerator : MonoBehaviour
             newTiles.UnionWith(newTilesBuffer);
             newTilesBuffer.Clear();
         }
-        return false;
+        //Debug.Log(accessibleTiles.Count - numTraversibleTiles);
+        Debug.Log(accessibleTiles.Count == numTraversibleTiles);
+        return accessibleTiles.Count == numTraversibleTiles;
     }
 
     // Update is called once per frame

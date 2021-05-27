@@ -17,7 +17,6 @@ public static class EnemyCounter
     public static void increment()
     {
         enemies += 1;
-        Debug.Log(enemies);
     }
 
     public static void decrement()

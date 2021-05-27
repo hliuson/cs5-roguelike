@@ -10,6 +10,7 @@ public class Enemy2AI : Enemy
 
     private Tracker tracker;
     private int internalCount;
+    private int difficultyPts = 1;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -78,5 +79,10 @@ public class Enemy2AI : Enemy
     public override void onDeath(Combatable source)
     {
         die();
+    }
+
+    public override int difficulty()
+    {
+        return this.difficultyPts;
     }
 }
