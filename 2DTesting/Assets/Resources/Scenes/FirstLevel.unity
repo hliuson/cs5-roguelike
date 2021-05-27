@@ -2012,10 +2012,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7521917ce8f4654f9dba014ac55d2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  traversableBlocks:
-  - {fileID: 5082443287277064153, guid: 1afe65507bcb2544d9dd8277997785ad, type: 3}
-  nontraversibleBlocks:
-  - {fileID: 9166291794961157968, guid: b7f9873b6482eb84eb5d216ff31c2d96, type: 3}
+  traversableBlock: {fileID: 5082443287277064153, guid: 1afe65507bcb2544d9dd8277997785ad,
+    type: 3}
+  nontraversableBlockFront: {fileID: 9166291794961157968, guid: b7f9873b6482eb84eb5d216ff31c2d96,
+    type: 3}
+  nontraversableBlockBack: {fileID: 6214025320276403106, guid: 5b8139076379bdb40a27c2abd1fa8f60,
+    type: 3}
   enemiesList: []
   startBlock: {fileID: 1766944596025173606, guid: 7abf73618e1e032449b4d8937cc9de36,
     type: 3}

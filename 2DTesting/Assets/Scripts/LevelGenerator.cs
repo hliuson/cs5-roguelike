@@ -5,10 +5,13 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     [SerializeField]
-    public GameObject[] traversableBlocks;
+    public GameObject traversableBlock;
 
     [SerializeField]
-    public GameObject[] nontraversibleBlocks;
+    public GameObject nontraversableBlockFront;
+
+    [SerializeField]
+    public GameObject nontraversableBlockBack;
 
     public List<Enemy> enemiesList;
 
@@ -79,13 +82,17 @@ public class LevelGenerator : MonoBehaviour
             }
             if (tt == terrainType.traversable)
             {
-                int index = rand.Next(traversableBlocks.Length);
-                prefab = traversableBlocks[index];
+                prefab = traversableBlock;
             }
             if (tt == terrainType.nontraversable)
             {
-                int index = rand.Next(nontraversibleBlocks.Length);
-                prefab = nontraversibleBlocks[index];
+                prefab = nontraversableBlockBack;
+                terrainType output = terrainType.nontraversable;
+                roomPositions.TryGetValue((location.x, location.y - 1), out output);
+                if(output == terrainType.traversable)
+                {
+                    prefab = nontraversableBlockFront;
+                }
             }
             Vector3 roomLocation = new Vector3(location.x * blockSizing, location.y * blockSizing, 0);
             Instantiate(prefab, roomLocation, Quaternion.identity);
