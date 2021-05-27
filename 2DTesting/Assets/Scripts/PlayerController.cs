@@ -172,7 +172,6 @@ public class PlayerController : Combatable {
             Combatable entity = damage[i].gameObject.GetComponent<Combatable>();
             if (entity != null && entity.getTeam() != this.team)
             {
-                print("Attacked");
                 Vector2 knockbackDirection = entity.transform.position - transform.position; ;
                 entity.takeDamage(meleeDamage, knockback, knockbackDirection, this);
             }
