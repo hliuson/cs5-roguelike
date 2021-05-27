@@ -234,7 +234,9 @@ MonoBehaviour:
   maxHealth: 10
   team: 0
   body: {fileID: 0}
-  attackCooldownMs: 250
+  attackCooldownMs: 300
+  flashWhiteDurationMs: 50
+  flashAmount: 0.9
   healthbar: {fileID: 2004350720062165082, guid: e261bfe60b866a049b4d726d2cefad23,
     type: 3}
   animator: {fileID: 4468049978922953007}
