@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using System;
 
 //Creates a standard framework for enemies and players.
 public abstract class Combatable : MonoBehaviour
@@ -18,7 +19,6 @@ public abstract class Combatable : MonoBehaviour
     public abstract void attack();
 
     public abstract void attack2();
-    
 
     public Rigidbody2D body;
     private Stopwatch attackStopwatch;
@@ -29,6 +29,8 @@ public abstract class Combatable : MonoBehaviour
     public int flashWhiteDurationMs = 50;
 
     public float flashAmount = 0.9f;
+
+    public int armorLevel = 0;
 
     protected virtual void Start()
     {
@@ -44,14 +46,33 @@ public abstract class Combatable : MonoBehaviour
 
     public void takeDamage(float damage, float knockbackMagnitude, Vector2 knockbackDirection, Combatable source)
     {
+        this.flashWhite();
+        if (this.armorLevel != 0)
+        {
+            System.Random rand = new System.Random();
+            float threshold = calculateArmorThreshold(this.armorLevel);
+            if(rand.NextDouble() < threshold)
+            {
+                return;
+            }
+        }
         this.health = this.health - damage;
         Vector2 knockback = knockbackDirection.normalized*knockbackMagnitude;
         this.body.AddForce(knockback, ForceMode2D.Impulse);
-        this.flashWhite();
+        
         if (this.health <= 0)
         {
             onDeath(source);
         }
+    }
+
+    public float calculateArmorThreshold(float x)
+    {
+        //Comes out to about .25 at 1, .46 at 2, .63 at 3, .76 at 4 and .85 at 5. Might need adjusting.
+        Func<float, float> sigmoid = x => (float)(Math.Pow(Math.E, x)/(1 + Math.Pow(Math.E, x)));
+
+        return 2 * sigmoid(x / 2) - 1;
+
     }
     //onDeath should call die(). But we've left this implementation for later
     //in case we want to have an enemy that say, ressurects the first time it dies.
