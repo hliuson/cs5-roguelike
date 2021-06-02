@@ -194,15 +194,15 @@ public class PlayerController : Combatable {
         Vector2 vel = new Vector2(x, y).normalized;
 
         Projectile proj = projectileInst.GetComponent<Projectile>();
-
-
-        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.speed;
         proj.source = this;
-
         foreach (PowerUp p in this.powerUpList)
         {
             p.onAttack(this, proj);
         }
+        projectileInst.GetComponent<Rigidbody2D>().velocity = vel * proj.getSpeed();
+        
+
+        
     }
 
     public void backupData()
