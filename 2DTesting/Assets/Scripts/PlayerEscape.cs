@@ -23,9 +23,14 @@ public class PlayerEscape : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            paused = !paused;
-            Time.timeScale = paused ? 0 : 1;
-            Canvas.gameObject.SetActive(paused);
+            toggle();
         }
+    }
+
+    public void toggle()
+    {
+        paused = !paused;
+        Time.timeScale = paused ? 0 : 1;
+        Canvas.gameObject.SetActive(paused);
     }
 }
