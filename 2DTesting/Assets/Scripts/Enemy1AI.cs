@@ -63,11 +63,15 @@ public class Enemy1AI : Enemy
     {
         float timeElapsed = 0.0f;
 
+        
+
         while (timeElapsed < dashTime)
         {
             this.body.position = Vector2.Lerp(body.position, currentTarget.transform.position, timeElapsed/dashTime);
             timeElapsed += Time.deltaTime;
-
+            if(this.body == null) {
+                yield return null;
+            }
             yield return null;
         }
         
