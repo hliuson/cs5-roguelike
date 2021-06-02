@@ -2027,10 +2027,10 @@ MonoBehaviour:
   debugFlagTemp: {fileID: 0}
   verticalBlocks: 5
   horizontalBlocks: 5
-  nontraversableRatio: 0.7
+  nontraversableRatio: 0.6
   blockSizing: 20
   maxFailedAttempts: 50
-  difficulty: 5
+  difficulty: 2
 --- !u!114 &1584559583
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -89,7 +89,7 @@ public class LevelGenerator : MonoBehaviour
                 prefab = nontraversableBlockBack;
                 terrainType output = terrainType.nontraversable;
                 roomPositions.TryGetValue((location.x, location.y - 1), out output);
-                if(output == terrainType.traversable)
+                if(output != terrainType.nontraversable)
                 {
                     prefab = nontraversableBlockFront;
                 }
