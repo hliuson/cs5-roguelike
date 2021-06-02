@@ -61,6 +61,7 @@ public class LevelGenerator : MonoBehaviour
         generateRoom(roomPositions);
         spawnEnemies(roomPositions, SceneChangeData.level);
         GetComponent<NavGrid>().wakeUp();
+        FindObjectOfType<EscapeMenuControl>().GetComponent<EscapeMenuControl>().wakeUp();
     }
 
     void generateRoom(Dictionary<(int, int), terrainType> roomPositions)

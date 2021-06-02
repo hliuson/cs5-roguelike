@@ -237,6 +237,7 @@ MonoBehaviour:
   attackCooldownMs: 300
   flashWhiteDurationMs: 50
   flashAmount: 0.9
+  armorLevel: 0
   healthbar: {fileID: 2004350720062165082, guid: e261bfe60b866a049b4d726d2cefad23,
     type: 3}
   animator: {fileID: 4468049978922953007}
@@ -245,9 +246,9 @@ MonoBehaviour:
     type: 3}
   attackTime: 0
   startTimeAttack: 0.3
-  attackRange: 6
-  meleeDamage: 2
-  knockback: 10
+  attackRange: 4
+  meleeDamage: 4
+  knockback: 30
 --- !u!114 &1306544850
 MonoBehaviour:
   m_ObjectHideFlags: 0
