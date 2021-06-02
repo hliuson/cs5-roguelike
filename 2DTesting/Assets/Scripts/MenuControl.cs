@@ -5,7 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour
 {
+    public GameObject helpScreen;
     // Start is called before the first frame update
+    private void Start()
+    {
+        helpScreen.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.anyKey) {
+            helpScreen.SetActive(false);
+        }
+    }
     public void exitGame()
     {
         Application.Quit();
@@ -14,6 +26,11 @@ public class MenuControl : MonoBehaviour
     public void test()
     {
         Debug.Log("Pressed");
+    }
+
+    public void showHelp()
+    {
+        helpScreen.SetActive(true);
     }
 
     public void startGame()
